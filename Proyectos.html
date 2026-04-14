@@ -10,6 +10,7 @@
     #h-scroll-track {
       display: flex; width: max-content; height: 100vh;
       transition: transform 1s cubic-bezier(0.77,0,0.175,1);
+      will-change: transform;
     }
     .proj-panel {
       width: 100vw; height: 100vh; flex-shrink: 0;
@@ -29,25 +30,25 @@
     .proj-panel-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .proj-panel:hover .proj-panel-img { transform: scale(1.04); }
 
-    /* Light panels */
     .panel-chiamo { background: var(--arena); }
     .panel-urku   { background: var(--lino); }
     .panel-radix  { background: var(--crema); }
     .panel-kairos { background: #1a1814; }
 
-    /* Kairos — dark panel, white text */
+    /* Kairos text color overrides */
     .panel-kairos .proj-title { color: var(--crema); }
+    .panel-kairos .proj-tag   { color: var(--gold-pal); }
     .panel-kairos .proj-desc  { color: rgba(240,236,227,0.65); }
     .panel-kairos .proj-meta-list { border-top-color: rgba(201,169,122,0.12); }
     .panel-kairos .proj-meta-list dt { color: rgba(201,169,122,0.6); }
     .panel-kairos .proj-meta-list dd { color: var(--crema); }
     .panel-kairos .tesis-badge { color: var(--gold-pal); border-color: var(--gold-pal); }
-    .panel-kairos .tesis-stat { border-color: rgba(201,169,122,0.12); background: rgba(201,169,122,0.04); }
-    .panel-kairos .tesis-stat-num { color: var(--crema); }
-    .panel-kairos .tesis-stat-label { color: rgba(201,169,122,0.6); }
-    .panel-kairos .concept-p { color: rgba(201,169,122,0.55); }
+    .panel-kairos .btn {
+      border-color: rgba(201,169,122,0.4);
+      color: var(--crema);
+    }
 
-    /* Detail panel — slides up from bottom */
+    /* Detail panel */
     .detail-panel {
       position: fixed; inset: 0; z-index: 600;
       background: var(--crema);
@@ -62,21 +63,18 @@
       background: var(--gold); color: var(--blanco);
       display: flex; align-items: center; justify-content: center;
       font-size: 1.2rem; cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-      font-family: 'DM Sans', sans-serif;
-      border: none;
+      transition: background 0.2s, transform 0.3s;
+      font-family: var(--font-body); border: none;
     }
     .detail-close:hover { background: var(--gold-dim); transform: rotate(90deg); }
-    .detail-inner {
-      padding: 12vh 6vw 8vh;
-      max-width: 1100px; margin: 0 auto;
-    }
-    .detail-header { margin-bottom: 5rem; }
+    .detail-inner { padding: 12vh 6vw 8vh; max-width: 1100px; margin: 0 auto; }
+    .detail-header { margin-bottom: 4rem; }
     .detail-header h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 8vw, 7rem); font-weight: 300;
-      color: var(--texto); text-transform: uppercase; letter-spacing: 0.05em;
-      line-height: 0.9; margin-bottom: 1.5rem;
+      font-size: clamp(2.5rem, 7vw, 6rem); font-weight: 300;
+      color: var(--texto); text-transform: uppercase;
+      letter-spacing: 0.05em; line-height: 0.9;
+      margin-bottom: 1.5rem; margin-top: 1rem;
     }
     .detail-header p { font-size: 0.82rem; line-height: 2; color: var(--texto-sua); max-width: 55ch; }
     .detail-photos {
@@ -86,12 +84,13 @@
     .detail-photos img {
       width: 100%; aspect-ratio: 16/9; object-fit: cover;
       display: block; transition: transform 0.6s;
+      background: var(--lino);
     }
     .detail-photos img:hover { transform: scale(1.02); }
     .detail-photos .main-photo { grid-column: 1 / -1; aspect-ratio: 21/9; }
     .detail-meta {
       display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 2px; margin-bottom: 4rem;
+      gap: 2px;
     }
     .detail-meta-item {
       padding: 2rem; background: var(--arena);
@@ -100,6 +99,19 @@
     .detail-meta-label { font-size: 0.55rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
     .detail-meta-value { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--texto); font-weight: 300; }
 
+    /* Drive link */
+    .drive-link {
+      display: inline-flex; align-items: center; gap: 0.8rem;
+      padding: 1rem 2rem; margin-bottom: 3rem;
+      border: 1px solid rgba(154,125,82,0.35);
+      font-size: 0.62rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--texto); background: var(--arena);
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+      cursor: pointer;
+    }
+    .drive-link:hover { background: var(--gold); border-color: var(--gold); color: var(--blanco); }
+    .drive-link svg { width: 16px; height: 16px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.5; }
+
     .scroll-keys {
       position: fixed; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
       font-size: 0.55rem; letter-spacing: 0.5em; text-transform: uppercase;
@@ -107,16 +119,32 @@
       display: flex; gap: 1.5rem; align-items: center;
     }
     .scroll-keys .key { border: 1px solid rgba(154,125,82,0.25); padding: 0.3rem 0.6rem; font-size: 0.55rem; color: var(--gold); }
-    #tesis-grid-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
-    @media (max-width: 768px) {
-      #h-scroll-track { display: block; height: auto; }
-      .h-scroll-outer { height: auto; overflow: visible; }
-      .proj-panel { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
-      .proj-panel-right { height: 55vw; }
-      .detail-photos { grid-template-columns: 1fr; }
-      .detail-photos .main-photo { aspect-ratio: 16/9; }
-      .detail-meta { grid-template-columns: 1fr 1fr; }
+    /* Kairos tesis stats */
+    .tesis-stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; margin-bottom: 2rem; }
+    .tesis-stat { text-align:center; padding:1.5rem 1rem; border:1px solid rgba(201,169,122,0.12); background:rgba(201,169,122,0.04); }
+    .tesis-stat-num { font-family:'Cormorant Garamond',serif; font-size:3rem; font-weight:300; color:var(--crema); line-height:1; margin-bottom:0.4rem; }
+    .tesis-stat-label { font-size:0.55rem; letter-spacing:0.4em; text-transform:uppercase; color:rgba(201,169,122,0.6); }
+    .tesis-badge { display:inline-block; padding:0.5rem 1.2rem; border:1px solid; font-size:0.6rem; letter-spacing:0.4em; text-transform:uppercase; margin-bottom:1.5rem; }
+
+    @media (max-width: 900px) {
+      #h-scroll-track { display:block; width:100%; height:auto; transform:none !important; transition:none; }
+      .h-scroll-outer { height:auto; overflow:visible; }
+      .proj-panel { grid-template-columns:1fr; height:auto; min-height:100vh; }
+      .proj-panel-left { padding:12vh 5vw 5vh; justify-content:flex-end; order:2; }
+      .proj-panel-right { order:1; height:56vw; min-height:240px; position:relative; }
+      .proj-panel-img { position:absolute; inset:0; }
+      .proj-number { display:none; }
+      .proj-meta-list { grid-template-columns:1fr; }
+      .panel-nav,.panel-counter,.projects-progress,.scroll-keys { display:none !important; }
+      .detail-photos { grid-template-columns:1fr; }
+      .detail-photos .main-photo { aspect-ratio:16/9; }
+      .detail-meta { grid-template-columns:1fr 1fr; }
+      .tesis-stats-row { grid-template-columns: repeat(3,1fr); }
+    }
+    @media (max-width: 480px) {
+      .detail-meta { grid-template-columns:1fr; }
+      .tesis-stats-row { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -134,7 +162,16 @@
     <li><a href="Sobre mi.html">Sobre mí</a></li>
     <li><a href="Contacto.html">Contacto</a></li>
   </ul>
+  <button class="nav-hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile-menu">
+  <a href="index.html">Inicio</a>
+  <a href="Proyectos.html" class="active">Proyectos</a>
+  <a href="Sobre mi.html">Sobre mí</a>
+  <a href="Contacto.html">Contacto</a>
+</div>
 
 <div class="panel-nav" id="panel-nav">
   <div class="panel-nav-dot active" title="Chiamò"></div>
@@ -149,7 +186,7 @@
 <div class="h-scroll-outer">
   <div id="h-scroll-track">
 
-    <!-- ══ PANEL 01 — CHIAMÒ ══ -->
+    <!-- ══ 01 — CHIAMÒ ══ -->
     <div class="proj-panel panel-chiamo">
       <div class="proj-panel-left">
         <div class="proj-number">01</div>
@@ -169,7 +206,7 @@
           <dt>Año</dt><dd>2023</dd>
           <dt>Materiales</dt><dd>Microcemento · Madera Paraíso · Melamina</dd>
         </dl>
-        <button class="btn" style="width:fit-content;cursor:pointer" onclick="openDetail('chiamo')"><span>Ver detalle →</span></button>
+        <button class="btn" style="width:fit-content" onclick="openDetail('chiamo')"><span>Ver detalle →</span></button>
       </div>
       <div class="proj-panel-right">
         <div class="proj-panel-img">
@@ -178,7 +215,7 @@
       </div>
     </div>
 
-    <!-- ══ PANEL 02 — URKU ══ -->
+    <!-- ══ 02 — URKU ══ -->
     <div class="proj-panel panel-urku">
       <div class="proj-panel-left">
         <div class="proj-number" style="color:rgba(154,125,82,0.05)">02</div>
@@ -198,7 +235,7 @@
           <dt>Año</dt><dd>2024</dd>
           <dt>Materiales</dt><dd>Hormigón · Piedra · Metal · Madera Nogal</dd>
         </dl>
-        <button class="btn" style="width:fit-content;cursor:pointer" onclick="openDetail('urku')"><span>Ver detalle →</span></button>
+        <button class="btn" style="width:fit-content" onclick="openDetail('urku')"><span>Ver detalle →</span></button>
       </div>
       <div class="proj-panel-right">
         <div class="proj-panel-img">
@@ -207,7 +244,7 @@
       </div>
     </div>
 
-    <!-- ══ PANEL 03 — RADIX ══ -->
+    <!-- ══ 03 — RADIX ══ -->
     <div class="proj-panel panel-radix">
       <div class="proj-panel-left">
         <div class="proj-number" style="color:rgba(154,125,82,0.05)">03</div>
@@ -227,7 +264,7 @@
           <dt>Año</dt><dd>2023</dd>
           <dt>Materiales</dt><dd>Madera Paraíso · Nogal · Microcemento · Lino</dd>
         </dl>
-        <button class="btn" style="width:fit-content;cursor:pointer" onclick="openDetail('radix')"><span>Ver detalle →</span></button>
+        <button class="btn" style="width:fit-content" onclick="openDetail('radix')"><span>Ver detalle →</span></button>
       </div>
       <div class="proj-panel-right">
         <div class="proj-panel-img">
@@ -236,37 +273,35 @@
       </div>
     </div>
 
-    <!-- ══ PANEL 04 — KAIRÓS ══ -->
-    <div class="proj-panel panel-kairos" style="grid-template-columns:1fr">
+    <!-- ══ 04 — KAIRÓS (misma estructura que los demás) ══ -->
+    <div class="proj-panel panel-kairos">
       <canvas id="tesis-grid-canvas"></canvas>
-      <div class="proj-panel-left" style="padding:12vh 6vw 8vh;justify-content:center;position:relative;z-index:2;grid-column:1">
-        <div class="tesis-badge">Tesis Final de Grado · 2025</div>
-        <div class="proj-tag" style="margin-bottom:0.5rem">Mercado de Abastos · Arquitectura</div>
-        <h2 class="proj-title" style="font-size:clamp(4rem,10vw,11rem);line-height:0.88;margin-bottom:2.5rem">
-          Kai<em style="color:var(--gold-pal);font-style:italic">rós</em>
-        </h2>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-bottom:3rem">
-          <p class="proj-desc concept-p" style="max-width:none">
-            Proyecto de tesis que reinterpreta la idea de mercado como espacio de consumo, encuentro y cultura. Combina tradición y contemporaneidad mediante dos volúmenes complementarios.
-          </p>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px">
-            <div class="tesis-stat"><div class="tesis-stat-num">2</div><div class="tesis-stat-label">Volúmenes</div></div>
-            <div class="tesis-stat"><div class="tesis-stat-num">6+</div><div class="tesis-stat-label">Programas</div></div>
-            <div class="tesis-stat"><div class="tesis-stat-num">25</div><div class="tesis-stat-label">Páginas planos</div></div>
-          </div>
+      <div class="proj-panel-left">
+        <div class="proj-number" style="color:rgba(201,169,122,0.04)">04</div>
+        <div class="tesis-badge">Tesis Final · 2025</div>
+        <div class="proj-tag">Mercado de Abastos · Arquitectura</div>
+        <h2 class="proj-title">Kairós</h2>
+        <p class="proj-desc">Mercado que reinterpreta el espacio de consumo, encuentro y cultura. Dos volúmenes: gastronomía y abastecimiento de día; coworking, gimnasio y estética de tarde y noche.</p>
+        <div class="color-palette">
+          <div class="palette-dot" style="background:#1a1814"></div>
+          <div class="palette-dot" style="background:#3d2d1e"></div>
+          <div class="palette-dot" style="background:#7a6248"></div>
+          <div class="palette-dot" style="background:#c9a97a"></div>
+          <div class="palette-dot" style="background:#f0ece3;border:1px solid rgba(255,255,255,0.1)"></div>
         </div>
-        <dl class="proj-meta-list" style="max-width:600px">
+        <dl class="proj-meta-list">
           <dt>Tipología</dt><dd>Mercado de Abastos</dd>
           <dt>Ubicación</dt><dd>San Martín 2299, Luján de Cuyo</dd>
           <dt>Año</dt><dd>2025</dd>
           <dt>Programa</dt><dd>Gastronomía · Coworking · Fitness · Estética</dd>
         </dl>
-        <button class="btn" style="width:fit-content;cursor:pointer;margin-top:2rem;border-color:rgba(201,169,122,0.4);color:var(--crema)" onclick="openDetail('kairos')"><span>Ver detalle →</span></button>
+        <button class="btn" style="width:fit-content" onclick="openDetail('kairos')"><span>Ver detalle →</span></button>
       </div>
-       <div class="proj-panel-right">
+      <div class="proj-panel-right">
         <div class="proj-panel-img">
-          <img src="kairos.png" alt="Proyecto Kairos">
+          <img src="kairos.png" alt="Proyecto Kairós">
         </div>
+      </div>
     </div>
 
   </div>
@@ -281,7 +316,9 @@
   <span>Universidad de Mendoza · Arquitectura</span>
 </footer>
 
-<!-- DETAIL PANELS -->
+<!-- ══ DETAIL PANELS ══ -->
+
+<!-- CHIAMÒ -->
 <div class="detail-panel" id="detail-chiamo">
   <button class="detail-close" onclick="closeDetail()">✕</button>
   <div class="detail-inner">
@@ -293,10 +330,10 @@
     <div class="detail-photos">
       <img src="vistaprincipal.png" alt="Chiamò — Vista principal" class="main-photo">
       <img src="barra.png" alt="Chiamò — Detalle barra">
-      <img src="barra2.png" alt="Chiamò —">
+      <img src="barra2.png" alt="Chiamò — Barra lateral">
       <img src="mesas.png" alt="Chiamò — Zona mesas">
-      <img src="mesas2.png" alt="Chiamò —" >
-      <img src="mesas3.png" alt="Chiamò —">
+      <img src="mesas2.png" alt="Chiamò — Mesas detalle">
+      <img src="mesas3.png" alt="Chiamò — Vista general">
     </div>
     <div class="detail-meta">
       <div class="detail-meta-item"><div class="detail-meta-label">Tipología</div><div class="detail-meta-value">Café</div></div>
@@ -307,6 +344,7 @@
   </div>
 </div>
 
+<!-- URKU -->
 <div class="detail-panel" id="detail-urku">
   <button class="detail-close" onclick="closeDetail()">✕</button>
   <div class="detail-inner">
@@ -317,11 +355,12 @@
     </div>
     <div class="detail-photos">
       <img src="vistaexterior.png" alt="Urku — Vista exterior" class="main-photo">
-      <img src="sala cata.png" alt="Urku — Interior sala cata">
-        <img src="planplantab.png" alt="Urku —">
-      <img src="lucesconbarrica.png" alt="Urku — Detalle bodega">
-      <img src="corte.png" alt="Urku —">
-       <img src="interiorbodega.png" alt="Urku — Interior bodega">
+      <img src="sala cata.png" alt="Urku — Sala de cata">
+      <img src="planplantab.png" alt="Urku — Planta baja">
+      <img src="lucesconbarrica.png" alt="Urku — Sala de barricas">
+      <img src="corte.png" alt="Urku — Corte">
+      <img src="interiorbodega.png" alt="Urku — Interior bodega">
+      <img src="barricasboodega.png" alt="Urku ">
     </div>
     <div class="detail-meta">
       <div class="detail-meta-item"><div class="detail-meta-label">Tipología</div><div class="detail-meta-value">Bodega</div></div>
@@ -332,6 +371,7 @@
   </div>
 </div>
 
+<!-- RADIX -->
 <div class="detail-panel" id="detail-radix">
   <button class="detail-close" onclick="closeDetail()">✕</button>
   <div class="detail-inner">
@@ -342,10 +382,10 @@
     </div>
     <div class="detail-photos">
       <img src="vistaliving.png" alt="Radix — Vista living" class="main-photo">
-     <img src="livingradix" alt="Radix —">
-     <img src="vistaenteraradix" alt="Radix — Vista Panoramica">
-      <img src="vistadesdelacocina" alt="Radix — Patio interior">
-      <img src="living" alt="Radix —">
+      <img src="livingradix.png" alt="Radix — Living">
+      <img src="vistaenteraradix.png" alt="Radix — Vista panorámica">
+      <img src="vistadesdelacocina.png" alt="Radix — Desde la cocina">
+      <img src="living.png" alt="Radix — Living detalle">
       <img src="cocinaradix.png" alt="Radix — Cocina">
     </div>
     <div class="detail-meta">
@@ -357,26 +397,41 @@
   </div>
 </div>
 
+<!-- KAIRÓS -->
 <div class="detail-panel" id="detail-kairos" style="background:#1a1814">
   <button class="detail-close" onclick="closeDetail()">✕</button>
   <div class="detail-inner">
     <div class="detail-header">
       <span style="font-size:0.6rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold-pal)">04 — Tesis Final · Mercado de Abastos</span>
       <h2 style="color:var(--crema)">Kairós</h2>
-      <p style="color:rgba(240,236,227,0.6)">Proyecto de tesis que reinterpreta la idea de mercado como espacio de consumo, encuentro y cultura. Combina tradición y contemporaneidad mediante dos volúmenes complementarios: uno dedicado al abastecimiento y la gastronomía, otro con coworking, gimnasio y estética.</p>
+      <p style="color:rgba(240,236,227,0.6)">Proyecto de tesis que reinterpreta la idea de mercado como espacio de consumo, encuentro y cultura. Dos volúmenes complementarios: uno dedicado al abastecimiento y la gastronomía, otro con coworking, gimnasio y estética. Un espacio urbano dinámico que promueve identidad local y comercio justo.</p>
     </div>
-    <div class="detail-photos">
+
+    <!-- Link a la tesis completa en Drive -->
+    <a href="https://drive.google.com/drive/u/0/folders/1yOWigqK3Q59puELcmUsW-A3JqRO_onrT"
+       target="_blank" rel="noopener" class="drive-link">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      <span>Ver tesis completa en Drive →</span>
+    </a>
+
+    <div class="tesis-stats-row">
+      <div class="tesis-stat"><div class="tesis-stat-num">2</div><div class="tesis-stat-label">Volúmenes</div></div>
+      <div class="tesis-stat"><div class="tesis-stat-num">6+</div><div class="tesis-stat-label">Programas</div></div>
+      <div class="tesis-stat"><div class="tesis-stat-num">25</div><div class="tesis-stat-label">Páginas planos</div></div>
+    </div>
+
+    <div class="detail-photos" style="margin-top:2rem">
       <img src="vistamercado.png" alt="Kairós — Vista general" class="main-photo">
       <img src="mercado.png" alt="Kairós — Interior mercado">
-      <img src="plantabkairos.png" alt="Kairós —">
-       <img src="plantaaltakairos.png" alt="Kairós —">
-      <img src="zonadebelleza.png" alt="Kairós — Salon de Belleza">
-        <img src="gym.png" alt="Kairós — Gimnasio">
-       <img src="estacionamientokairos.png" alt="Kairós — Estacionamiento">
-       <img src="cowork.png" alt="Kairós — Sala de Coworking">
-        <img src="cortekairos.png" alt="Kairós —">
+      <img src="plantabkairos.png" alt="Kairós — Planta baja">
+      <img src="plantaaltakairos.png" alt="Kairós — Planta alta">
+      <img src="zonadebelleza.png" alt="Kairós — Salón de belleza">
+      <img src="gym.png" alt="Kairós — Gimnasio">
+      <img src="estacionamientokairos.png" alt="Kairós — Estacionamiento">
+      <img src="cowork.png" alt="Kairós — Coworking">
+      <img src="cortekairos.png" alt="Kairós — Corte">
     </div>
-    <div class="detail-meta" style="background:rgba(154,125,82,0.05)">
+    <div class="detail-meta" style="margin-top:2rem">
       <div class="detail-meta-item" style="background:rgba(154,125,82,0.06)"><div class="detail-meta-label">Tipología</div><div class="detail-meta-value" style="color:var(--crema)">Mercado de Abastos</div></div>
       <div class="detail-meta-item" style="background:rgba(154,125,82,0.06)"><div class="detail-meta-label">Ubicación</div><div class="detail-meta-value" style="color:var(--crema)">San Martín 2299, Luján de Cuyo</div></div>
       <div class="detail-meta-item" style="background:rgba(154,125,82,0.06)"><div class="detail-meta-label">Año</div><div class="detail-meta-value" style="color:var(--crema)">2025</div></div>
@@ -387,7 +442,6 @@
 
 <script src="Main.js"></script>
 <script>
-  // Detail panel logic
   function openDetail(id) {
     document.getElementById('detail-' + id).classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -397,20 +451,6 @@
     document.body.style.overflow = '';
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
-
-  // Panel counter
-  const counter = document.getElementById('panel-counter');
-  const track = document.getElementById('h-scroll-track');
-  if (track) {
-    new MutationObserver(() => {
-      const tx = track.style.transform;
-      const match = tx.match(/translateX\(-(\d+)/);
-      if (match) {
-        const idx = Math.round(parseInt(match[1]) / window.innerWidth);
-        if (counter) counter.textContent = `0${idx+1} — 04`;
-      }
-    }).observe(track, { attributes: true, attributeFilter: ['style'] });
-  }
 </script>
 </body>
 </html>
