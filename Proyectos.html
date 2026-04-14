@@ -6,130 +6,117 @@
   <title>Proyectos — Sofia Storelli</title>
   <link rel="stylesheet" href="Style.css">
   <style>
-    /* ── horizontal scroll container ── */
-    .h-scroll-outer {
-      overflow: hidden;
-      height: 100vh;
-    }
+    .h-scroll-outer { overflow: hidden; height: 100vh; }
     #h-scroll-track {
-      display: flex;
-      width: max-content;
-      height: 100vh;
+      display: flex; width: max-content; height: 100vh;
       transition: transform 1s cubic-bezier(0.77,0,0.175,1);
     }
-
-    /* ── project panels ── */
     .proj-panel {
-      width: 100vw;
-      height: 100vh;
-      flex-shrink: 0;
-      display: grid;
-      grid-template-columns: 42vw 58vw;
-      position: relative;
-      overflow: hidden;
+      width: 100vw; height: 100vh; flex-shrink: 0;
+      display: grid; grid-template-columns: 42vw 58vw;
+      position: relative; overflow: hidden;
     }
     .proj-panel-left {
       padding: 14vh 5vw 8vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      position: relative;
-      z-index: 2;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      position: relative; z-index: 2;
     }
-    .proj-panel-right {
-      position: relative;
-      overflow: hidden;
-    }
-    .proj-panel-visual {
+    .proj-panel-right { position: relative; overflow: hidden; }
+    .proj-panel-img {
       position: absolute; inset: 0;
       transition: transform 1.4s cubic-bezier(0.16,1,0.3,1);
     }
-    .proj-panel:hover .proj-panel-visual { transform: scale(1.05); }
+    .proj-panel-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .proj-panel:hover .proj-panel-img { transform: scale(1.04); }
 
-    /* dark bg for odd panels */
-    .panel-chiamo  { background: #0f0e0b; }
-    .panel-urku    { background: #0b0b09; }
-    .panel-radix   { background: #100f0a; }
+    /* Light panels */
+    .panel-chiamo { background: var(--arena); }
+    .panel-urku   { background: var(--lino); }
+    .panel-radix  { background: var(--crema); }
+    .panel-kairos { background: #1a1814; }
 
-    /* scroll keys hint */
-    .scroll-keys {
-      position: fixed;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.55rem;
-      letter-spacing: 0.5em;
-      text-transform: uppercase;
-      color: var(--gray);
-      z-index: 500;
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-    }
-    .scroll-keys .key {
-      border: 1px solid rgba(201,169,122,0.2);
-      padding: 0.3rem 0.6rem;
-      font-size: 0.55rem;
-      color: var(--gold);
-    }
+    /* Kairos — dark panel, white text */
+    .panel-kairos .proj-title { color: var(--crema); }
+    .panel-kairos .proj-desc  { color: rgba(240,236,227,0.65); }
+    .panel-kairos .proj-meta-list { border-top-color: rgba(201,169,122,0.12); }
+    .panel-kairos .proj-meta-list dt { color: rgba(201,169,122,0.6); }
+    .panel-kairos .proj-meta-list dd { color: var(--crema); }
+    .panel-kairos .tesis-badge { color: var(--gold-pal); border-color: var(--gold-pal); }
+    .panel-kairos .tesis-stat { border-color: rgba(201,169,122,0.12); background: rgba(201,169,122,0.04); }
+    .panel-kairos .tesis-stat-num { color: var(--crema); }
+    .panel-kairos .tesis-stat-label { color: rgba(201,169,122,0.6); }
+    .panel-kairos .concept-p { color: rgba(201,169,122,0.55); }
 
-    /* ── TESIS page (full screen after scroll panels) ── */
-    .tesis-page {
-      min-height: 100vh;
-      background: var(--near-black);
-      position: relative;
-      overflow: hidden;
+    /* Detail panel — slides up from bottom */
+    .detail-panel {
+      position: fixed; inset: 0; z-index: 600;
+      background: var(--crema);
+      transform: translateY(100%);
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+      overflow-y: auto;
     }
-
-    /* ── animated grid canvas ── */
-    #tesis-grid-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
+    .detail-panel.open { transform: translateY(0); }
+    .detail-close {
+      position: fixed; top: 2rem; right: 3vw; z-index: 700;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--gold); color: var(--blanco);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      border: none;
     }
-
-    /* ── tesis number detail ── */
-    .tesis-stat {
-      text-align: center;
-      padding: 2rem;
-      border: 1px solid rgba(201,169,122,0.08);
+    .detail-close:hover { background: var(--gold-dim); transform: rotate(90deg); }
+    .detail-inner {
+      padding: 12vh 6vw 8vh;
+      max-width: 1100px; margin: 0 auto;
     }
-    .tesis-stat-num {
+    .detail-header { margin-bottom: 5rem; }
+    .detail-header h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 3.5rem;
-      font-weight: 300;
-      color: var(--cream);
-      line-height: 1;
-      margin-bottom: 0.5rem;
+      font-size: clamp(3rem, 8vw, 7rem); font-weight: 300;
+      color: var(--texto); text-transform: uppercase; letter-spacing: 0.05em;
+      line-height: 0.9; margin-bottom: 1.5rem;
     }
-    .tesis-stat-label {
-      font-size: 0.58rem;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--gray);
+    .detail-header p { font-size: 0.82rem; line-height: 2; color: var(--texto-sua); max-width: 55ch; }
+    .detail-photos {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2px; margin-bottom: 4rem;
     }
+    .detail-photos img {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover;
+      display: block; transition: transform 0.6s;
+    }
+    .detail-photos img:hover { transform: scale(1.02); }
+    .detail-photos .main-photo { grid-column: 1 / -1; aspect-ratio: 21/9; }
+    .detail-meta {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2px; margin-bottom: 4rem;
+    }
+    .detail-meta-item {
+      padding: 2rem; background: var(--arena);
+      border-top: 2px solid rgba(154,125,82,0.15);
+    }
+    .detail-meta-label { font-size: 0.55rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+    .detail-meta-value { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--texto); font-weight: 300; }
 
-    /* ── panel transition label ── */
-    .panel-counter {
-      position: fixed;
-      top: 50%;
-      left: 3vw;
-      transform: translateY(-50%) rotate(-90deg);
-      font-size: 0.55rem;
-      letter-spacing: 0.5em;
-      text-transform: uppercase;
-      color: var(--gray);
-      z-index: 500;
-      transform-origin: center;
+    .scroll-keys {
+      position: fixed; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      font-size: 0.55rem; letter-spacing: 0.5em; text-transform: uppercase;
+      color: var(--gris-med); z-index: 500;
+      display: flex; gap: 1.5rem; align-items: center;
     }
+    .scroll-keys .key { border: 1px solid rgba(154,125,82,0.25); padding: 0.3rem 0.6rem; font-size: 0.55rem; color: var(--gold); }
+    #tesis-grid-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
     @media (max-width: 768px) {
       #h-scroll-track { display: block; height: auto; }
       .h-scroll-outer { height: auto; overflow: visible; }
       .proj-panel { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
-      .proj-panel-right { height: 50vw; }
+      .proj-panel-right { height: 55vw; }
+      .detail-photos { grid-template-columns: 1fr; }
+      .detail-photos .main-photo { aspect-ratio: 16/9; }
+      .detail-meta { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -139,7 +126,6 @@
 <div id="cursor-ring"></div>
 <div id="page-transition"></div>
 
-<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">Sofia Storelli</a>
   <ul class="nav-links">
@@ -150,7 +136,6 @@
   </ul>
 </nav>
 
-<!-- PANEL NAV DOTS -->
 <div class="panel-nav" id="panel-nav">
   <div class="panel-nav-dot active" title="Chiamò"></div>
   <div class="panel-nav-dot" title="Urku"></div>
@@ -158,13 +143,9 @@
   <div class="panel-nav-dot" title="Kairós"></div>
 </div>
 
-<!-- PROGRESS BAR -->
 <div class="projects-progress" id="proj-progress"></div>
-
-<!-- PANEL COUNTER -->
 <div class="panel-counter" id="panel-counter">01 — 04</div>
 
-<!-- HORIZONTAL SCROLL OUTER -->
 <div class="h-scroll-outer">
   <div id="h-scroll-track">
 
@@ -174,11 +155,9 @@
         <div class="proj-number">01</div>
         <div class="proj-tag">Café · Local Comercial</div>
         <h2 class="proj-title">Chiamò</h2>
-        <p class="proj-desc">
-          Integrado al diseño del hotel donde se emplaza, este café propone un ambiente acogedor y moderno. Madera Paraíso y microcemento crean un diálogo entre calidez y precisión.
-        </p>
+        <p class="proj-desc">Integrado al diseño del hotel donde se emplaza, este café propone un ambiente acogedor y moderno. Madera Paraíso y microcemento crean un diálogo entre calidez y precisión.</p>
         <div class="color-palette">
-          <div class="palette-dot" style="background:#f5f0e8;border:1px solid rgba(255,255,255,0.1)"></div>
+          <div class="palette-dot" style="background:#f5f0e8;border:1px solid rgba(46,42,34,0.12)"></div>
           <div class="palette-dot" style="background:#c9a97a"></div>
           <div class="palette-dot" style="background:#9b8b7a"></div>
           <div class="palette-dot" style="background:#7d6e5e"></div>
@@ -190,61 +169,11 @@
           <dt>Año</dt><dd>2023</dd>
           <dt>Materiales</dt><dd>Microcemento · Madera Paraíso · Melamina</dd>
         </dl>
-        <a href="Proyectos.html" class="btn" style="width:fit-content"><span>Ver detalle →</span></a>
+        <button class="btn" style="width:fit-content;cursor:pointer" onclick="openDetail('chiamo')"><span>Ver detalle →</span></button>
       </div>
       <div class="proj-panel-right">
-        <div class="proj-panel-visual">
-          <div class="proj-panel-visual">
-  <img src="renderchiamo.png" alt="Proyecto Chiamò" style="width:100%; height:100%; object-fit:cover;">
-</div>
-            <rect width="800" height="700" fill="#1a1916"/>
-            <!-- Full café render illustration -->
-            <!-- floor -->
-            <rect x="0" y="550" width="800" height="150" fill="#1f1e19"/>
-            <!-- ceiling -->
-            <rect x="0" y="0" width="800" height="80" fill="#1c1b16"/>
-            <!-- ceiling slats -->
-            <line x1="0" y1="80" x2="800" y2="80" stroke="rgba(201,169,122,0.15)" stroke-width="1"/>
-            <line x1="60" y1="0" x2="60" y2="80" stroke="rgba(201,169,122,0.08)" stroke-width="3"/>
-            <line x1="110" y1="0" x2="110" y2="80" stroke="rgba(201,169,122,0.08)" stroke-width="3"/>
-            <line x1="160" y1="0" x2="160" y2="80" stroke="rgba(201,169,122,0.08)" stroke-width="3"/>
-            <line x1="210" y1="0" x2="210" y2="80" stroke="rgba(201,169,122,0.08)" stroke-width="3"/>
-            <line x1="260" y1="0" x2="260" y2="80" stroke="rgba(201,169,122,0.08)" stroke-width="3"/>
-            <!-- back wall -->
-            <rect x="0" y="80" width="800" height="470" fill="#201f1a"/>
-            <!-- counter curved -->
-            <path d="M 50 420 Q 280 380 420 420 L 420 550 L 50 550 Z" fill="#2a2820" stroke="rgba(201,169,122,0.25)" stroke-width="0.8"/>
-            <!-- barista zone -->
-            <rect x="100" y="300" width="280" height="120" fill="#252318" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <!-- chiamo logo -->
-            <text x="250" y="260" font-size="28" fill="rgba(240,236,227,0.12)" letter-spacing="6" font-family="Georgia" text-anchor="middle">chiamo.</text>
-            <!-- menu board -->
-            <rect x="100" y="120" width="130" height="80" fill="#1a1916" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <line x1="115" y1="140" x2="215" y2="140" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
-            <line x1="115" y1="155" x2="195" y2="155" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <line x1="115" y1="168" x2="200" y2="168" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <line x1="115" y1="180" x2="185" y2="180" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <!-- window wall right -->
-            <rect x="500" y="80" width="300" height="400" fill="rgba(201,169,122,0.03)" stroke="rgba(201,169,122,0.12)" stroke-width="0.8"/>
-            <line x1="650" y1="80" x2="650" y2="480" stroke="rgba(201,169,122,0.1)" stroke-width="0.8"/>
-            <line x1="500" y1="280" x2="800" y2="280" stroke="rgba(201,169,122,0.1)" stroke-width="0.8"/>
-            <!-- warm light effect -->
-            <ellipse cx="200" cy="300" rx="80" ry="60" fill="rgba(201,169,122,0.04)"/>
-            <!-- tables -->
-            <ellipse cx="580" cy="480" rx="55" ry="22" fill="#252318" stroke="rgba(201,169,122,0.2)" stroke-width="0.5"/>
-            <ellipse cx="700" cy="500" rx="50" ry="20" fill="#252318" stroke="rgba(201,169,122,0.2)" stroke-width="0.5"/>
-            <!-- chairs -->
-            <rect x="548" y="458" width="22" height="22" rx="2" fill="#2e2b1c" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <rect x="597" y="458" width="22" height="22" rx="2" fill="#2e2b1c" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <!-- plants -->
-            <ellipse cx="760" cy="300" rx="30" ry="50" fill="rgba(60,85,40,0.25)" stroke="rgba(80,110,50,0.2)" stroke-width="0.5"/>
-            <ellipse cx="770" cy="250" rx="20" ry="30" fill="rgba(60,85,40,0.2)"/>
-            <!-- floor accent line -->
-            <line x1="0" y1="550" x2="800" y2="550" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
-            <!-- wall text -->
-            <text x="50" y="380" font-size="11" fill="rgba(240,236,227,0.06)" letter-spacing="3" font-family="Georgia">COFFEE AND FRIENDS</text>
-            <text x="50" y="398" font-size="11" fill="rgba(240,236,227,0.06)" letter-spacing="3" font-family="Georgia">THE PERFECT BLEND.</text>
-          </svg>
+        <div class="proj-panel-img">
+          <img src="renderchiamo.png" alt="Proyecto Chiamò">
         </div>
       </div>
     </div>
@@ -252,18 +181,16 @@
     <!-- ══ PANEL 02 — URKU ══ -->
     <div class="proj-panel panel-urku">
       <div class="proj-panel-left">
-        <div class="proj-number" style="color:rgba(201,169,122,0.05)">02</div>
+        <div class="proj-number" style="color:rgba(154,125,82,0.05)">02</div>
         <div class="proj-tag">Bodega · Arquitectura</div>
         <h2 class="proj-title">Urku</h2>
-        <p class="proj-desc">
-          Bodega que se integra al paisaje montañoso de Luján de Cuyo. Hormigón, piedra y metal en diálogo con las cumbres andinas. <em>Urku</em> — montaña en quechua.
-        </p>
+        <p class="proj-desc">Bodega que se integra al paisaje montañoso de Luján de Cuyo. Hormigón, piedra y metal en diálogo con las cumbres andinas. <em>Urku</em> — montaña en quechua.</p>
         <div class="color-palette">
-          <div class="palette-dot" style="background:#1a1916"></div>
+          <div class="palette-dot" style="background:#e0d8c8;border:1px solid rgba(46,42,34,0.08)"></div>
           <div class="palette-dot" style="background:#6b5f52"></div>
           <div class="palette-dot" style="background:#8a7d6a"></div>
           <div class="palette-dot" style="background:#4a3f34"></div>
-          <div class="palette-dot" style="background:#f0ece3;border:1px solid rgba(255,255,255,0.08)"></div>
+          <div class="palette-dot" style="background:#9a7d52"></div>
         </div>
         <dl class="proj-meta-list">
           <dt>Tipología</dt><dd>Bodega</dd>
@@ -271,58 +198,11 @@
           <dt>Año</dt><dd>2024</dd>
           <dt>Materiales</dt><dd>Hormigón · Piedra · Metal · Madera Nogal</dd>
         </dl>
-        <a href="Proyectos.html" class="btn" style="width:fit-content"><span>Ver detalle →</span></a>
+        <button class="btn" style="width:fit-content;cursor:pointer" onclick="openDetail('urku')"><span>Ver detalle →</span></button>
       </div>
       <div class="proj-panel-right">
-        <div class="proj-panel-visual">
-       <div class="proj-panel-visual">
-  <img src="bodegasofi.png" alt="Proyecto Urku" style="width:100%; height:100%; object-fit:cover;">
-</div>
-            <rect width="800" height="700" fill="#0d0c0a"/>
-            <!-- sky -->
-            <rect x="0" y="0" width="800" height="300" fill="#111009"/>
-            <!-- mountains -->
-            <path d="M -50 350 L 150 150 L 280 260 L 400 80 L 520 200 L 650 120 L 850 280 L 850 700 L -50 700 Z" fill="#161410"/>
-            <path d="M 0 380 L 180 220 L 320 310 L 450 160 L 600 250 L 750 180 L 850 300 L 850 700 L 0 700 Z" fill="#1a1815"/>
-            <!-- snow peaks -->
-            <path d="M 390 80 L 400 60 L 410 80 Z" fill="rgba(240,236,227,0.15)"/>
-            <path d="M 640 120 L 650 100 L 660 120 Z" fill="rgba(240,236,227,0.1)"/>
-            <!-- winery building -->
-            <rect x="100" y="350" width="600" height="250" fill="#1e1c18" stroke="rgba(201,169,122,0.12)" stroke-width="0.5"/>
-            <!-- left wing lower -->
-            <rect x="80" y="420" width="120" height="180" fill="#191714" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-            <!-- right wing -->
-            <rect x="600" y="380" width="160" height="220" fill="#191714" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-            <!-- large curtain wall windows -->
-            <rect x="180" y="360" width="260" height="200" fill="rgba(201,169,122,0.05)" stroke="rgba(201,169,122,0.18)" stroke-width="0.8"/>
-            <!-- window grid -->
-            <line x1="240" y1="360" x2="240" y2="560" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <line x1="310" y1="360" x2="310" y2="560" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <line x1="370" y1="360" x2="370" y2="560" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <line x1="180" y1="430" x2="440" y2="430" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <line x1="180" y1="500" x2="440" y2="500" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <!-- interior visible through window -->
-            <rect x="185" y="365" width="250" height="190" fill="rgba(201,169,122,0.03)"/>
-            <!-- chairs through window -->
-            <ellipse cx="250" cy="500" rx="25" ry="12" fill="rgba(180,160,120,0.15)"/>
-            <ellipse cx="360" cy="510" rx="22" ry="10" fill="rgba(180,160,120,0.12)"/>
-            <!-- tanks visible right section -->
-            <rect x="460" y="370" width="130" height="180" fill="rgba(201,169,122,0.03)" stroke="rgba(201,169,122,0.08)" stroke-width="0.3"/>
-            <circle cx="490" cy="440" r="20" fill="#252220" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
-            <circle cx="530" cy="440" r="20" fill="#252220" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
-            <circle cx="570" cy="440" r="20" fill="#252220" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
-            <!-- vineyard rows -->
-            <line x1="0" y1="600" x2="100" y2="580" stroke="rgba(80,90,50,0.2)" stroke-width="0.5"/>
-            <line x1="0" y1="615" x2="100" y2="595" stroke="rgba(80,90,50,0.2)" stroke-width="0.5"/>
-            <line x1="0" y1="630" x2="100" y2="610" stroke="rgba(80,90,50,0.2)" stroke-width="0.5"/>
-            <line x1="700" y1="600" x2="800" y2="580" stroke="rgba(80,90,50,0.2)" stroke-width="0.5"/>
-            <line x1="700" y1="615" x2="800" y2="595" stroke="rgba(80,90,50,0.2)" stroke-width="0.5"/>
-            <!-- ground -->
-            <rect x="0" y="590" width="800" height="110" fill="#14130f"/>
-            <!-- tree -->
-            <line x1="130" y1="590" x2="130" y2="380" stroke="rgba(140,160,100,0.15)" stroke-width="2"/>
-            <ellipse cx="130" cy="340" rx="35" ry="50" fill="rgba(80,100,50,0.2)"/>
-          </svg>
+        <div class="proj-panel-img">
+          <img src="bodegasofi.png" alt="Proyecto Urku">
         </div>
       </div>
     </div>
@@ -330,18 +210,16 @@
     <!-- ══ PANEL 03 — RADIX ══ -->
     <div class="proj-panel panel-radix">
       <div class="proj-panel-left">
-        <div class="proj-number" style="color:rgba(201,169,122,0.05)">03</div>
+        <div class="proj-number" style="color:rgba(154,125,82,0.05)">03</div>
         <div class="proj-tag">Vivienda · Interior Design</div>
         <h2 class="proj-title">Radix</h2>
-        <p class="proj-desc">
-          El núcleo del hogar. Cocina, estar y comedor integrados en Barrio Dalvian. Un patio interior actúa como pulmón verde, introduciendo luz y naturaleza al corazón de la vivienda.
-        </p>
+        <p class="proj-desc">El núcleo del hogar. Cocina, estar y comedor integrados en Barrio Dalvian. Un patio interior actúa como pulmón verde, introduciendo luz y naturaleza al corazón de la vivienda.</p>
         <div class="color-palette">
-          <div class="palette-dot" style="background:#e8dfc8;border:1px solid rgba(255,255,255,0.08)"></div>
+          <div class="palette-dot" style="background:#e8dfc8;border:1px solid rgba(46,42,34,0.08)"></div>
           <div class="palette-dot" style="background:#9b7d5a"></div>
           <div class="palette-dot" style="background:#3d2d1e"></div>
           <div class="palette-dot" style="background:#6b6864"></div>
-          <div class="palette-dot" style="background:#b8b5ae;border:1px solid rgba(255,255,255,0.08)"></div>
+          <div class="palette-dot" style="background:#b8b5ae"></div>
         </div>
         <dl class="proj-meta-list">
           <dt>Tipología</dt><dd>Vivienda Unifamiliar</dd>
@@ -349,162 +227,164 @@
           <dt>Año</dt><dd>2023</dd>
           <dt>Materiales</dt><dd>Madera Paraíso · Nogal · Microcemento · Lino</dd>
         </dl>
-        <a href="Proyectos.html" class="btn" style="width:fit-content"><span>Ver detalle →</span></a>
+        <button class="btn" style="width:fit-content;cursor:pointer" onclick="openDetail('radix')"><span>Ver detalle →</span></button>
       </div>
       <div class="proj-panel-right">
-        <div class="proj-panel-visual">
-       <div class="proj-panel-visual">
-            <img src="radixsofi.png" alt="Proyecto Radix" style="width:100%; height:100%; object-fit:cover;">
-          </div>
-            <rect width="800" height="700" fill="#181610"/>
-            <!-- wood ceiling -->
-            <rect x="0" y="0" width="800" height="100" fill="#2a2418"/>
-            <line x1="0" y1="100" x2="800" y2="100" stroke="rgba(201,169,122,0.15)" stroke-width="1"/>
-            <!-- ceiling wood slats horizontal -->
-            <rect x="0" y="15" width="800" height="12" fill="rgba(180,150,100,0.08)"/>
-            <rect x="0" y="40" width="800" height="12" fill="rgba(180,150,100,0.06)"/>
-            <rect x="0" y="65" width="800" height="12" fill="rgba(180,150,100,0.06)"/>
-            <!-- floor -->
-            <rect x="0" y="580" width="800" height="120" fill="#20191000"/>
-            <!-- walls -->
-            <rect x="0" y="100" width="800" height="480" fill="#1c1a12"/>
-            <!-- patio interior - central -->
-            <rect x="300" y="100" width="200" height="220" fill="rgba(60,80,35,0.15)" stroke="rgba(80,100,50,0.2)" stroke-width="0.8"/>
-            <!-- patio plants -->
-            <ellipse cx="380" cy="180" rx="40" ry="30" fill="rgba(60,90,35,0.3)"/>
-            <ellipse cx="420" cy="160" rx="28" ry="40" fill="rgba(50,80,28,0.25)"/>
-            <ellipse cx="350" cy="200" rx="22" ry="28" fill="rgba(70,95,40,0.2)"/>
-            <!-- patio light shaft -->
-            <rect x="300" y="100" width="200" height="30" fill="rgba(201,169,122,0.08)"/>
-            <!-- glass wall to patio -->
-            <line x1="300" y1="100" x2="300" y2="320" stroke="rgba(201,169,122,0.15)" stroke-width="1"/>
-            <line x1="500" y1="100" x2="500" y2="320" stroke="rgba(201,169,122,0.15)" stroke-width="1"/>
-            <line x1="300" y1="210" x2="500" y2="210" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <!-- living area left -->
-            <!-- sofa L -->
-            <rect x="30" y="370" width="200" height="60" rx="4" fill="#2e2b1c" stroke="rgba(201,169,122,0.12)" stroke-width="0.5"/>
-            <rect x="30" y="370" width="60" height="130" rx="4" fill="#2e2b1c" stroke="rgba(201,169,122,0.12)" stroke-width="0.5"/>
-            <!-- cushions -->
-            <rect x="50" y="380" width="40" height="30" rx="2" fill="#383020"/>
-            <rect x="100" y="380" width="40" height="30" rx="2" fill="#383020"/>
-            <rect x="150" y="380" width="40" height="30" rx="2" fill="#383020"/>
-            <!-- coffee table -->
-            <rect x="120" y="460" width="90" height="55" rx="2" fill="#3a3020" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <!-- TV unit right -->
-            <rect x="600" y="350" width="180" height="120" rx="2" fill="#1a1812" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-            <!-- shelving -->
-            <line x1="610" y1="380" x2="770" y2="380" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-            <line x1="610" y1="410" x2="770" y2="410" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-            <line x1="610" y1="440" x2="770" y2="440" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-            <!-- kitchen right zone -->
-            <rect x="550" y="100" width="250" height="200" fill="#201d12" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-            <!-- kitchen island - sculptural stone base -->
-            <ellipse cx="640" cy="180" rx="55" ry="35" fill="#302a1c" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
-            <ellipse cx="640" cy="195" rx="40" ry="22" fill="#3a3222"/>
-            <!-- dining table -->
-            <rect x="30" y="200" width="220" height="80" rx="2" fill="#2a2418" stroke="rgba(201,169,122,0.12)" stroke-width="0.5"/>
-            <!-- dining chairs -->
-            <rect x="50" y="185" width="30" height="16" rx="1" fill="#383020"/>
-            <rect x="100" y="185" width="30" height="16" rx="1" fill="#383020"/>
-            <rect x="150" y="185" width="30" height="16" rx="1" fill="#383020"/>
-            <rect x="50" y="280" width="30" height="16" rx="1" fill="#383020"/>
-            <rect x="100" y="280" width="30" height="16" rx="1" fill="#383020"/>
-            <rect x="150" y="280" width="30" height="16" rx="1" fill="#383020"/>
-            <!-- artwork on wall -->
-            <rect x="520" y="280" width="60" height="80" fill="#1a1812" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-            <line x1="525" y1="295" x2="575" y2="350" stroke="rgba(201,169,122,0.12)" stroke-width="1"/>
-            <line x1="550" y1="285" x2="530" y2="355" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-            <!-- floor line -->
-            <line x1="0" y1="520" x2="800" y2="520" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-            <!-- floor wood -->
-            <rect x="0" y="520" width="800" height="180" fill="#1c1912"/>
-            <line x1="0" y1="540" x2="800" y2="540" stroke="rgba(201,169,122,0.04)" stroke-width="0.5"/>
-            <line x1="0" y1="560" x2="800" y2="560" stroke="rgba(201,169,122,0.04)" stroke-width="0.5"/>
-            <line x1="0" y1="580" x2="800" y2="580" stroke="rgba(201,169,122,0.04)" stroke-width="0.5"/>
-          </svg>
+        <div class="proj-panel-img">
+          <img src="radixsofi.png" alt="Proyecto Radix">
         </div>
       </div>
     </div>
 
-    <!-- ══ PANEL 04 — KAIRÓS (TESIS) ══ -->
-    <div class="proj-panel" style="background:#090908;grid-template-columns:1fr">
-      <!-- Full bleed tesis panel -->
-      <canvas id="tesis-grid-canvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0"></canvas>
-
+    <!-- ══ PANEL 04 — KAIRÓS ══ -->
+    <div class="proj-panel panel-kairos" style="grid-template-columns:1fr">
+      <canvas id="tesis-grid-canvas"></canvas>
       <div class="proj-panel-left" style="padding:12vh 6vw 8vh;justify-content:center;position:relative;z-index:2;grid-column:1">
         <div class="tesis-badge">Tesis Final de Grado · 2025</div>
         <div class="proj-tag" style="margin-bottom:0.5rem">Mercado de Abastos · Arquitectura</div>
-
         <h2 class="proj-title" style="font-size:clamp(4rem,10vw,11rem);line-height:0.88;margin-bottom:2.5rem">
-          Kai<em style="color:var(--gold);font-style:italic">rós</em>
+          Kai<em style="color:var(--gold-pal);font-style:italic">rós</em>
         </h2>
-
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-bottom:3rem">
-          <p class="proj-desc" style="max-width:none">
-            Proyecto de tesis que reinterpreta la idea de mercado como espacio de consumo, encuentro y cultura. Combina tradición y contemporaneidad mediante dos volúmenes complementarios: uno dedicado al abastecimiento y la gastronomía, otro con coworking, gimnasio y estética.
+          <p class="proj-desc concept-p" style="max-width:none">
+            Proyecto de tesis que reinterpreta la idea de mercado como espacio de consumo, encuentro y cultura. Combina tradición y contemporaneidad mediante dos volúmenes complementarios.
           </p>
-          <div>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-bottom:2rem">
-              <div class="tesis-stat"><div class="tesis-stat-num">2</div><div class="tesis-stat-label">Volúmenes</div></div>
-              <div class="tesis-stat"><div class="tesis-stat-num">6+</div><div class="tesis-stat-label">Programas</div></div>
-              <div class="tesis-stat"><div class="tesis-stat-num">25</div><div class="tesis-stat-label">Páginas planos</div></div>
-            </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px">
+            <div class="tesis-stat"><div class="tesis-stat-num">2</div><div class="tesis-stat-label">Volúmenes</div></div>
+            <div class="tesis-stat"><div class="tesis-stat-num">6+</div><div class="tesis-stat-label">Programas</div></div>
+            <div class="tesis-stat"><div class="tesis-stat-num">25</div><div class="tesis-stat-label">Páginas planos</div></div>
           </div>
         </div>
-
-        <div class="color-palette" style="margin-bottom:2rem">
-          <div class="palette-dot" style="background:#0e0e0c"></div>
-          <div class="palette-dot" style="background:#3d2d1e"></div>
-          <div class="palette-dot" style="background:#7a6248"></div>
-          <div class="palette-dot" style="background:#c9a97a"></div>
-          <div class="palette-dot" style="background:#f0ece3;border:1px solid rgba(255,255,255,0.08)"></div>
-        </div>
-
         <dl class="proj-meta-list" style="max-width:600px">
           <dt>Tipología</dt><dd>Mercado de Abastos</dd>
-          <dt>Ubicación</dt><dd>Calle San Martín 2299, Luján de Cuyo</dd>
+          <dt>Ubicación</dt><dd>San Martín 2299, Luján de Cuyo</dd>
           <dt>Año</dt><dd>2025</dd>
-          <dt>Programa</dt><dd>Gastronomía · Coworking · Fitness · Estética · Comercio</dd>
+          <dt>Programa</dt><dd>Gastronomía · Coworking · Fitness · Estética</dd>
         </dl>
-
-        <div style="margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(201,169,122,0.1)">
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2rem">
-            <div><div class="concept-title" style="font-size:0.58rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem">Concepto</div><p style="font-size:0.72rem;line-height:1.9;color:var(--gray)">El <em>kairós</em> griego: el momento oportuno. Un espacio que existe en el tiempo correcto para la comunidad.</p></div>
-            <div><div class="concept-title" style="font-size:0.58rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem">Programa</div><p style="font-size:0.72rem;line-height:1.9;color:var(--gray)">Planta baja activa de día. Planta alta con usos complementarios que mantienen el conjunto vivo de noche.</p></div>
-            <div><div class="concept-title" style="font-size:0.58rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem">Materialidad</div><p style="font-size:0.72rem;line-height:1.9;color:var(--gray)">Panel Alucobond, acero cor-ten, hormigón armado, madera. Paleta oscura que contrasta con la vitalidad interior.</p></div>
-          </div>
-        </div>
+        <button class="btn" style="width:fit-content;cursor:pointer;margin-top:2rem;border-color:rgba(201,169,122,0.4);color:var(--crema)" onclick="openDetail('kairos')"><span>Ver detalle →</span></button>
       </div>
+       <div class="proj-panel-right">
+        <div class="proj-panel-img">
+          <img src="kairos.png" alt="Proyecto Kairos">
+        </div>
     </div>
 
-  </div><!-- end track -->
-</div><!-- end scroll outer -->
-
-<!-- SCROLL HINT -->
-<div class="scroll-keys">
-  <span class="key">←</span>
-  <span>Navegar</span>
-  <span class="key">→</span>
+  </div>
 </div>
 
-<!-- FOOTER -->
+<div class="scroll-keys">
+  <span class="key">←</span><span>Navegar</span><span class="key">→</span>
+</div>
+
 <footer>
   <span>© 2025 Sofia Storelli</span>
   <span>Universidad de Mendoza · Arquitectura</span>
 </footer>
 
+<!-- DETAIL PANELS -->
+<div class="detail-panel" id="detail-chiamo">
+  <button class="detail-close" onclick="closeDetail()">✕</button>
+  <div class="detail-inner">
+    <div class="detail-header">
+      <span style="font-size:0.6rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold)">01 — Café · Local Comercial</span>
+      <h2>Chiamò</h2>
+      <p>Integrado al diseño del hotel donde se emplaza, este café propone un ambiente acogedor y moderno. Madera Paraíso y microcemento crean un diálogo entre calidez y precisión. El espacio busca que cada cliente sienta que el café fue diseñado para él.</p>
+    </div>
+    <div class="detail-photos">
+      <img src="renderchiamo.png" alt="Chiamò — Vista principal" class="main-photo">
+      <img src="renderchiamo.png" alt="Chiamò — Detalle barra">
+      <img src="renderchiamo.png" alt="Chiamò — Zona mesas">
+    </div>
+    <div class="detail-meta">
+      <div class="detail-meta-item"><div class="detail-meta-label">Tipología</div><div class="detail-meta-value">Café</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">Ubicación</div><div class="detail-meta-value">Mariano Moreno 239, Mendoza</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">Año</div><div class="detail-meta-value">2023</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">Materiales</div><div class="detail-meta-value">Microcemento · Madera Paraíso · Melamina</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-panel" id="detail-urku">
+  <button class="detail-close" onclick="closeDetail()">✕</button>
+  <div class="detail-inner">
+    <div class="detail-header">
+      <span style="font-size:0.6rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold)">02 — Bodega · Arquitectura</span>
+      <h2>Urku</h2>
+      <p>Bodega que se integra al paisaje montañoso de Luján de Cuyo. Hormigón, piedra y metal en diálogo con las cumbres andinas. <em>Urku</em> significa montaña en quechua — el proyecto nace de ese concepto de arraigo y verticalidad.</p>
+    </div>
+    <div class="detail-photos">
+      <img src="bodegasofi.png" alt="Urku — Vista exterior" class="main-photo">
+      <img src="bodegasofi.png" alt="Urku — Interior sala cata">
+      <img src="bodegasofi.png" alt="Urku — Detalle fachada">
+    </div>
+    <div class="detail-meta">
+      <div class="detail-meta-item"><div class="detail-meta-label">Tipología</div><div class="detail-meta-value">Bodega</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">Ubicación</div><div class="detail-meta-value">Cochabamba 95000, Luján de Cuyo</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">Año</div><div class="detail-meta-value">2024</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">Materiales</div><div class="detail-meta-value">Hormigón · Piedra · Metal · Madera Nogal</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-panel" id="detail-radix">
+  <button class="detail-close" onclick="closeDetail()">✕</button>
+  <div class="detail-inner">
+    <div class="detail-header">
+      <span style="font-size:0.6rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold)">03 — Vivienda · Interior Design</span>
+      <h2>Radix</h2>
+      <p>El núcleo del hogar. Cocina, estar y comedor integrados en Barrio Dalvian. Un patio interior actúa como pulmón verde, introduciendo luz y naturaleza al corazón de la vivienda.</p>
+    </div>
+    <div class="detail-photos">
+      <img src="radixsofi.png" alt="Radix — Vista living" class="main-photo">
+      <img src="radixsofi.png" alt="Radix — Patio interior">
+      <img src="radixsofi.png" alt="Radix — Cocina">
+    </div>
+    <div class="detail-meta">
+      <div class="detail-meta-item"><div class="detail-meta-label">Tipología</div><div class="detail-meta-value">Vivienda Unifamiliar</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">Ubicación</div><div class="detail-meta-value">Barrio Dalvian, Mendoza</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">Año</div><div class="detail-meta-value">2023</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">Materiales</div><div class="detail-meta-value">Madera Paraíso · Nogal · Microcemento · Lino</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-panel" id="detail-kairos" style="background:#1a1814">
+  <button class="detail-close" onclick="closeDetail()">✕</button>
+  <div class="detail-inner">
+    <div class="detail-header">
+      <span style="font-size:0.6rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold-pal)">04 — Tesis Final · Mercado de Abastos</span>
+      <h2 style="color:var(--crema)">Kairós</h2>
+      <p style="color:rgba(240,236,227,0.6)">Proyecto de tesis que reinterpreta la idea de mercado como espacio de consumo, encuentro y cultura. Combina tradición y contemporaneidad mediante dos volúmenes complementarios: uno dedicado al abastecimiento y la gastronomía, otro con coworking, gimnasio y estética.</p>
+    </div>
+    <div class="detail-photos">
+      <img src="kairos.png" alt="Kairós — Vista general" class="main-photo">
+      <img src="kairos.png" alt="Kairós — Interior mercado">
+      <img src="kairos.png" alt="Kairós — Fachada">
+    </div>
+    <div class="detail-meta" style="background:rgba(154,125,82,0.05)">
+      <div class="detail-meta-item" style="background:rgba(154,125,82,0.06)"><div class="detail-meta-label">Tipología</div><div class="detail-meta-value" style="color:var(--crema)">Mercado de Abastos</div></div>
+      <div class="detail-meta-item" style="background:rgba(154,125,82,0.06)"><div class="detail-meta-label">Ubicación</div><div class="detail-meta-value" style="color:var(--crema)">San Martín 2299, Luján de Cuyo</div></div>
+      <div class="detail-meta-item" style="background:rgba(154,125,82,0.06)"><div class="detail-meta-label">Año</div><div class="detail-meta-value" style="color:var(--crema)">2025</div></div>
+      <div class="detail-meta-item" style="background:rgba(154,125,82,0.06)"><div class="detail-meta-label">Programa</div><div class="detail-meta-value" style="color:var(--crema)">Gastronomía · Coworking · Fitness · Estética</div></div>
+    </div>
+  </div>
+</div>
+
 <script src="Main.js"></script>
 <script>
-  /* panel counter update */
-  const counter = document.getElementById('panel-counter');
-  const totalPanels = 4;
-  const origGoTo = window.goToPanel;
-
-  function updateCounter(idx) {
-    if (counter) counter.textContent = `0${idx+1} — 0${totalPanels}`;
+  // Detail panel logic
+  function openDetail(id) {
+    document.getElementById('detail-' + id).classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
+  function closeDetail() {
+    document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
 
-  /* observe track transform changes via MutationObserver */
+  // Panel counter
+  const counter = document.getElementById('panel-counter');
   const track = document.getElementById('h-scroll-track');
   if (track) {
     new MutationObserver(() => {
@@ -512,7 +392,7 @@
       const match = tx.match(/translateX\(-(\d+)/);
       if (match) {
         const idx = Math.round(parseInt(match[1]) / window.innerWidth);
-        updateCounter(idx);
+        if (counter) counter.textContent = `0${idx+1} — 04`;
       }
     }).observe(track, { attributes: true, attributeFilter: ['style'] });
   }
