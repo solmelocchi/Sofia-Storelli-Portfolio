@@ -94,16 +94,35 @@
     setTimeout(() => { trans.style.pointerEvents = 'none'; }, 700);
   }
 
-  /* intercept internal nav links */
-  document.querySelectorAll('a[href]').forEach(link => {
-    const href = link.getAttribute('href');
-    if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('http') || href.startsWith('https') || href.startsWith('tel')) return;
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const target = href;
-      animateIn(() => { window.location.href = target; });
+ 
+ /* intercept internal nav links */
+document.querySelectorAll('a[href]').forEach(link => {
+  const href = link.getAttribute('href');
+
+  if (
+    !href ||
+    href.startsWith('#') ||
+    href.startsWith('mailto') ||
+    href.startsWith('http') ||
+    href.startsWith('https') ||
+    href.startsWith('tel')
+  ) return;
+
+  link.addEventListener('click', e => {
+
+    // 🔥 CLAVE: no romper navegación normal
+    if (
+      e.ctrlKey || e.metaKey || e.shiftKey || e.altKey ||
+      link.target === "_blank"
+    ) return;
+
+    e.preventDefault();
+
+    animateIn(() => {
+      window.location.href = href;
     });
   });
+});
 
   /* on load: sweep out */
   window.addEventListener('load', () => {
@@ -310,4 +329,9 @@
     requestAnimationFrame(loop);
   }
   loop();
+   window.addEventListener('pageshow', function (event) {
+  if (event.persisted) {
+    window.location.reload();
+  }
+});
 })();
