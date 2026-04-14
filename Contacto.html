@@ -6,177 +6,117 @@
   <title>Contacto — Sofia Storelli</title>
   <link rel="stylesheet" href="Style.css">
   <style>
-    /* ── full viewport contact ── */
     body { overflow: hidden; }
     .contact-wrap {
-      height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      overflow: hidden;
+      height: 100vh; display: grid;
+      grid-template-columns: 1fr 1fr; overflow: hidden;
     }
-
-    /* left: info panel */
     .contact-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 8vh 8vw 8vh 6vw;
-      position: relative;
-      border-right: 1px solid rgba(201,169,122,0.06);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8vh 8vw 8vh 6vw; position: relative;
+      background: var(--crema);
+      border-right: 1px solid rgba(154,125,82,0.1);
     }
-    .contact-left-bg {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-    }
-
-    /* right: animated panel */
-    .contact-right {
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 8vh 6vw;
-    }
-    .contact-right-bg {
+    /* subtle grid pattern */
+    .contact-left::before {
+      content: '';
       position: absolute; inset: 0;
-      overflow: hidden;
-    }
-
-    /* ── large text decoration ── */
-    .contact-bg-letter {
-      position: absolute;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 70vw;
-      font-weight: 300;
-      color: rgba(201,169,122,0.025);
-      line-height: 1;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
+      background-image: linear-gradient(rgba(154,125,82,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(154,125,82,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
       pointer-events: none;
-      letter-spacing: -0.05em;
-      animation: rotateSlow 60s linear infinite;
     }
-    @keyframes rotateSlow {
-      from { transform: translate(-50%,-50%) rotate(0deg); }
-      to   { transform: translate(-50%,-50%) rotate(360deg); }
+    .contact-right {
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      padding: 8vh 6vw;
+      background: var(--arena);
     }
-
-    /* ── contact info blocks ── */
     .contact-info-item {
-      margin-bottom: 3rem;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid rgba(201,169,122,0.06);
+      margin-bottom: 2.5rem; padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(154,125,82,0.1);
+      position: relative; z-index: 1;
     }
-    .contact-info-item:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
+    .contact-info-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
     .contact-info-label {
-      font-size: 0.58rem;
-      letter-spacing: 0.5em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.75rem;
+      font-size: 0.55rem; letter-spacing: 0.5em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem;
     }
     .contact-info-value {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.2rem, 2vw, 1.8rem);
-      font-weight: 300;
-      color: var(--cream);
-      letter-spacing: 0.05em;
+      font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+      font-weight: 300; color: var(--texto); letter-spacing: 0.04em;
     }
-    .contact-info-value a {
-      transition: color 0.3s;
-      display: inline-block;
-    }
+    .contact-info-value a { transition: color 0.3s; display: inline-block; }
     .contact-info-value a:hover { color: var(--gold); }
-
-    /* ── availability badge ── */
     .avail-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.6rem 1.2rem;
-      border: 1px solid rgba(80,140,80,0.3);
-      background: rgba(80,140,80,0.05);
-      margin-top: 3rem;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.6rem 1.2rem; margin-top: 2.5rem;
+      border: 1px solid rgba(80,140,80,0.2);
+      background: rgba(80,140,80,0.04);
+      position: relative; z-index: 1;
     }
-    .avail-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #5a9a5a;
-      animation: blinkDot 2s ease-in-out infinite;
-    }
-    @keyframes blinkDot {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-    .avail-text {
-      font-size: 0.62rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: #5a9a5a;
-    }
-
-    /* ── animated arch drawing ── */
-    #contact-canvas {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
+    .avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #5a9a5a; animation: blinkDot 2s ease-in-out infinite; }
+    @keyframes blinkDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .avail-text { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: #5a9a5a; }
+    /* Right panel */
+    .contact-bg-letter {
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif; font-size: 70vw;
+      font-weight: 300; color: rgba(154,125,82,0.04);
+      line-height: 1; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
       pointer-events: none;
+      animation: rotateSlow 60s linear infinite;
     }
-
-    /* ── right panel content ── */
-    .contact-right-inner {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-    }
+    @keyframes rotateSlow { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+    #contact-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .contact-right-inner { position: relative; z-index: 2; text-align: center; }
     .contact-right-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 5vw, 5rem);
-      font-weight: 300;
-      color: var(--cream);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      line-height: 1;
-      margin-bottom: 2rem;
+      font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 300;
+      color: var(--texto); text-transform: uppercase;
+      letter-spacing: 0.12em; line-height: 1; margin-bottom: 2rem;
     }
     .contact-right-sub {
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gray);
-      line-height: 2.2;
-      margin-bottom: 3rem;
+      font-size: 0.68rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--texto-sua);
+      line-height: 2.4; margin-bottom: 3rem;
     }
     .divider-v {
-      width: 1px;
-      height: 60px;
+      width: 1px; height: 60px;
       background: linear-gradient(to bottom, transparent, var(--gold), transparent);
       margin: 0 auto 3rem;
     }
-
     .back-link {
-      position: fixed;
-      bottom: 2.5rem;
-      left: 3vw;
-      font-size: 0.6rem;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--gray);
-      transition: color 0.3s;
-      z-index: 100;
+      position: fixed; bottom: 2.5rem; left: 3vw;
+      font-size: 0.6rem; letter-spacing: 0.4em;
+      text-transform: uppercase; color: var(--texto-sua);
+      transition: color 0.3s; z-index: 100;
     }
     .back-link:hover { color: var(--gold); }
-
+    /* Social links row */
+    .contact-socials {
+      display: flex; gap: 2rem; justify-content: center;
+      margin-top: 2rem; flex-wrap: wrap;
+    }
+    .contact-social-link {
+      font-size: 0.6rem; letter-spacing: 0.4em;
+      text-transform: uppercase; color: var(--texto-sua);
+      transition: color 0.3s; position: relative;
+    }
+    .contact-social-link::after {
+      content: ''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1px; background: var(--gold);
+      transition: width 0.4s;
+    }
+    .contact-social-link:hover { color: var(--gold); }
+    .contact-social-link:hover::after { width: 100%; }
     @media (max-width: 768px) {
       body { overflow: auto; }
       .contact-wrap { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
-      .contact-left { border-right: none; border-bottom: 1px solid rgba(201,169,122,0.06); }
+      .contact-left { border-right: none; border-bottom: 1px solid rgba(154,125,82,0.1); }
       .contact-right { min-height: 60vh; }
     }
   </style>
@@ -187,7 +127,6 @@
 <div id="cursor-ring"></div>
 <div id="page-transition"></div>
 
-<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">Sofia Storelli</a>
   <ul class="nav-links">
@@ -201,142 +140,97 @@
 <a href="index.html" class="back-link">← Volver</a>
 
 <div class="contact-wrap">
-
-  <!-- LEFT — contact info -->
   <div class="contact-left">
-    <div class="contact-left-bg">
-      <!-- subtle grid lines -->
-      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(201,169,122,0.04)" stroke-width="0.5"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid)"/>
-      </svg>
+    <div style="font-size:0.55rem;letter-spacing:0.55em;text-transform:uppercase;color:var(--gold);margin-bottom:3.5rem;position:relative;z-index:1" class="reveal">Contacto</div>
+
+    <div class="contact-info-item reveal reveal-delay-1">
+      <div class="contact-info-label">Email</div>
+      <div class="contact-info-value">
+        <a href="mailto:sofiistorelli@gmail.com">sofiistorelli@gmail.com</a>
+      </div>
     </div>
 
-    <div style="position:relative;z-index:2">
-      <div style="font-size:0.58rem;letter-spacing:0.55em;text-transform:uppercase;color:var(--gold);margin-bottom:4rem" class="reveal">Contacto</div>
-
-      <div class="contact-info-item reveal reveal-delay-1">
-        <div class="contact-info-label">Email</div>
-        <div class="contact-info-value">
-          <a href="mailto:sofiistorelli@gmail.com">sofiistorelli@gmail.com</a>
-        </div>
+    <div class="contact-info-item reveal reveal-delay-2">
+      <div class="contact-info-label">LinkedIn</div>
+      <div class="contact-info-value">
+        <a href="https://linkedin.com/in/sofiastorelli" target="_blank">linkedin.com/in/sofiastorelli</a>
       </div>
+    </div>
 
-      <div class="contact-info-item reveal reveal-delay-2">
-        <div class="contact-info-label">LinkedIn</div>
-        <div class="contact-info-value">
-          <a href="https://linkedin.com/in/sofiastorelli" target="_blank">linkedin.com/in/sofiastorelli</a>
-        </div>
+    <div class="contact-info-item reveal reveal-delay-2">
+      <div class="contact-info-label">Instagram</div>
+      <div class="contact-info-value">
+        <a href="https://instagram.com/sofiastorelli.arq" target="_blank">@sofiastorelli.arq</a>
       </div>
+    </div>
 
-
-      <div class="contact-info-item reveal reveal-delay-3">
-        <div class="contact-info-label">Ubicación</div>
-        <div class="contact-info-value" style="font-size:clamp(1rem,1.5vw,1.4rem)">
-          Mendoza, Argentina
-        </div>
+    <div class="contact-info-item reveal reveal-delay-3">
+      <div class="contact-info-label">Ubicación</div>
+      <div class="contact-info-value" style="font-size:clamp(1rem,1.5vw,1.3rem)">
+        Mendoza, Argentina
       </div>
+    </div>
 
-      <div class="avail-badge reveal reveal-delay-4">
-        <div class="avail-dot"></div>
-        <span class="avail-text">Disponible para proyectos · 2025</span>
-      </div>
+    <div class="avail-badge reveal reveal-delay-4">
+      <div class="avail-dot"></div>
+      <span class="avail-text">Disponible para proyectos · 2025</span>
     </div>
   </div>
 
-  <!-- RIGHT — animated visual -->
   <div class="contact-right">
-    <div class="contact-right-bg">
-      <canvas id="contact-canvas"></canvas>
-      <div class="contact-bg-letter">S</div>
-    </div>
+    <canvas id="contact-canvas"></canvas>
+    <div class="contact-bg-letter">S</div>
 
     <div class="contact-right-inner">
-      <div style="font-size:0.6rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem" class="reveal">¿Trabajamos juntos?</div>
+      <div style="font-size:0.58rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem" class="reveal">¿Trabajamos juntos?</div>
       <h2 class="contact-right-title reveal reveal-delay-1">
         Hablemos<br>de tu proyecto
       </h2>
       <div class="divider-v reveal reveal-delay-2"></div>
       <p class="contact-right-sub reveal reveal-delay-3">
+        Espacios que integran<br>
+        lo estético · lo funcional · lo social<br>
         Mendoza · Argentina · 2025
       </p>
       <a href="mailto:sofiistorelli@gmail.com" class="btn btn-primary reveal reveal-delay-4" style="display:inline-flex">
+        <a href="https://wa.me/5492615861499" target="_blank" class="btn btn-secondary">
         <span>Escribime →</span>
       </a>
+      <div class="contact-socials reveal reveal-delay-4">
+        <a href="https://linkedin.com/in/sofiastorelli" target="_blank" class="contact-social-link">LinkedIn</a>
+        <a href="https://instagram.com/sofiastorelli.arq" target="_blank" class="contact-social-link">Instagram</a>
+      </div>
     </div>
   </div>
-
 </div>
 
 <script src="Main.js"></script>
 <script>
-  /* ── Animated architectural lines on contact canvas ── */
   (function() {
     const canvas = document.getElementById('contact-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let w, h, t = 0;
-
-    function resize() {
-      w = canvas.width  = canvas.offsetWidth;
-      h = canvas.height = canvas.offsetHeight;
-    }
+    function resize() { w = canvas.width = canvas.offsetWidth; h = canvas.height = canvas.offsetHeight; }
     resize();
     window.addEventListener('resize', resize);
-
-    /* draw animated architectural composition */
     function draw() {
       ctx.clearRect(0, 0, w, h);
-
-      /* base grid — very faint */
-      ctx.strokeStyle = 'rgba(201,169,122,0.04)';
+      ctx.strokeStyle = 'rgba(154,125,82,0.05)';
       ctx.lineWidth = 0.5;
       const step = 80;
-      for (let x = 0; x <= w; x += step) {
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+      for (let x = 0; x <= w; x += step) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke(); }
+      for (let y = 0; y <= h; y += step) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
+      ctx.strokeStyle = 'rgba(154,125,82,0.08)';
+      for (let i = 0; i < 4; i++) {
+        const r = 80 + i*60 + Math.sin(t*0.3+i)*20;
+        ctx.beginPath(); ctx.arc(w*0.5, h*0.5, r, 0, Math.PI*2); ctx.stroke();
       }
-      for (let y = 0; y <= h; y += step) {
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
-      }
-
-      /* animated arcs */
-      ctx.strokeStyle = 'rgba(201,169,122,0.07)';
-      ctx.lineWidth = 0.5;
-      for (let i = 0; i < 5; i++) {
-        const radius = 80 + i * 60 + Math.sin(t * 0.3 + i) * 20;
-        ctx.beginPath();
-        ctx.arc(w * 0.5, h * 0.5, radius, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-
-      /* diagonal animated lines */
-      ctx.strokeStyle = 'rgba(201,169,122,0.1)';
-      ctx.lineWidth = 0.5;
-      const x1 = w * 0.1 + Math.sin(t * 0.4) * w * 0.1;
-      const y1 = h * 0.1 + Math.cos(t * 0.3) * h * 0.1;
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(w - x1, h - y1);
-      ctx.stroke();
-
-      /* pulsing intersection dots */
-      const nx = w * 0.5 + Math.sin(t * 0.5) * w * 0.2;
-      const ny = h * 0.5 + Math.cos(t * 0.4) * h * 0.15;
-      const pulse = (Math.sin(t * 1.2) + 1) / 2;
-      ctx.beginPath();
-      ctx.arc(nx, ny, 2 + pulse * 4, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(201,169,122,${0.15 + pulse * 0.25})`;
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.arc(w - nx + w * 0.1, h - ny + h * 0.1, 2 + (1-pulse) * 3, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(201,169,122,${0.1 + (1-pulse) * 0.2})`;
-      ctx.fill();
-
+      const nx = w*0.5 + Math.sin(t*0.5)*w*0.2;
+      const ny = h*0.5 + Math.cos(t*0.4)*h*0.15;
+      const pulse = (Math.sin(t*1.2)+1)/2;
+      ctx.beginPath(); ctx.arc(nx, ny, 2+pulse*4, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(154,125,82,${0.12+pulse*0.2})`; ctx.fill();
       t += 0.012;
       requestAnimationFrame(draw);
     }
