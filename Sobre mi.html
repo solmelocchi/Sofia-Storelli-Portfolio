@@ -4,80 +4,108 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sobre mí — Sofia Storelli</title>
-  <link rel="stylesheet" href="Style.css">
+  <link rel="stylesheet" href="style.css">
   <style>
-    .photo-deco { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-    .photo-frame-outer { width: 62%; aspect-ratio: 3/4; position: relative; }
+    /* ── photo area architectural drawing ── */
+    .photo-deco {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .photo-frame-outer {
+      width: 62%;
+      aspect-ratio: 3/4;
+      position: relative;
+    }
     .photo-frame-main {
-      position: absolute; inset: 0;
-      border: 1px solid rgba(154,125,82,0.2);
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(201,169,122,0.2);
       overflow: hidden;
-      background: var(--lino);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a1916;
     }
-    .photo-frame-ghost { position: absolute; inset: -1px; border: 1px solid rgba(154,125,82,0.08); transform: translate(14px, 14px); }
-    .photo-frame-ghost-2 { position: absolute; inset: -1px; border: 1px solid rgba(154,125,82,0.04); transform: translate(28px, 28px); }
+    .photo-frame-ghost {
+      position: absolute;
+      inset: -1px;
+      border: 1px solid rgba(201,169,122,0.07);
+      transform: translate(14px, 14px);
+    }
+    .photo-frame-ghost-2 {
+      position: absolute;
+      inset: -1px;
+      border: 1px solid rgba(201,169,122,0.04);
+      transform: translate(28px, 28px);
+    }
 
-    /* TIMELINE with photos */
-    .timeline { padding: 10vh 6vw; border-top: 1px solid rgba(154,125,82,0.08); background: var(--crema); }
-    .timeline-items { margin-top: 4rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
+    /* ── skills radar visual ── */
+    .skills-visual-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    /* ── about page layout fixes ── */
+    .about-hero-left-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+      padding: 18vh 6vw 10vh;
+    }
+
+    /* ── timeline ── */
+    .timeline {
+      padding: 10vh 6vw;
+      border-top: 1px solid rgba(201,169,122,0.08);
+    }
+    .timeline-items {
+      margin-top: 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+    }
     .timeline-item {
-      position: relative;
-      border: 1px solid rgba(154,125,82,0.1);
-      background: var(--blanco);
-      overflow: hidden;
-      transition: box-shadow 0.3s, transform 0.3s;
-    }
-    .timeline-item:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(46,42,34,0.1); }
-    .timeline-photo {
-      width: 100%; height: 200px; overflow: hidden;
-      background: var(--lino);
-    }
-    .timeline-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
-    .timeline-item:hover .timeline-photo img { transform: scale(1.05); }
-    .timeline-content { padding: 1.8rem; }
-    .timeline-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-bottom: 1rem; }
-    .timeline-year { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: rgba(154,125,82,0.25); margin-bottom: 0.25rem; line-height: 1; }
-    .timeline-title { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--texto); margin-bottom: 0.75rem; }
-    .timeline-text { font-size: 0.72rem; line-height: 1.9; color: var(--texto-sua); }
-
-    /* SKILLS — integrated, not floating */
-    .skills-section { padding: 10vh 6vw; background: var(--arena); }
-    .skills-intro { max-width: 500px; margin-bottom: 4rem; }
-    .skills-intro p { font-size: 0.82rem; line-height: 2; color: var(--texto-sua); }
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: rgba(154,125,82,0.08); }
-    .skill-cell {
-      padding: 2.5rem 2rem; background: var(--crema);
-      position: relative; overflow: hidden; transition: background 0.3s;
-    }
-    .skill-cell:hover { background: var(--blanco); }
-    .skill-cell::before { content: ''; position: absolute; inset: 0; background: var(--gold); opacity: 0; transition: opacity 0.4s; }
-    .skill-cell:hover::before { opacity: 0.03; }
-    .skill-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--texto); margin-bottom: 0.4rem; position: relative; z-index: 1; }
-    .skill-type { font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--texto-min); position: relative; z-index: 1; margin-bottom: 1rem; }
-    .skill-bar { position: absolute; bottom: 0; left: 0; height: 2px; background: var(--gold); transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-    .skill-cell:not([data-bar-init]) .skill-bar { width: 0 !important; }
-
-    /* LANGUAGES — horizontal strip, integrated */
-    .lang-section {
-      padding: 0 6vw 10vh; background: var(--arena);
-      display: flex; gap: 2px;
-    }
-    .lang-item {
-      flex: 1; padding: 3rem 2.5rem;
-      background: var(--lino);
-      border-top: 3px solid transparent;
-      transition: border-color 0.3s;
+      padding: 2.5rem 2rem 2.5rem 0;
+      border-right: 1px solid rgba(201,169,122,0.08);
       position: relative;
     }
-    .lang-item:hover { border-top-color: var(--gold); }
-    .lang-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--texto); margin-bottom: 0.4rem; }
-    .lang-level { font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: block; }
-    .lang-bar-track { height: 1px; background: rgba(154,125,82,0.15); position: relative; }
-    .lang-bar-fill { position: absolute; top: -0.5px; left: 0; height: 2px; background: var(--gold); }
+    .timeline-item:last-child { border-right: none; padding-right: 0; padding-left: 2rem; }
+    .timeline-item:nth-child(2) { padding-left: 2rem; }
+    .timeline-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .timeline-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: rgba(201,169,122,0.3);
+      margin-bottom: 0.5rem;
+    }
+    .timeline-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 0.75rem;
+    }
+    .timeline-text {
+      font-size: 0.72rem;
+      line-height: 1.9;
+      color: var(--gray);
+    }
 
     @media (max-width: 768px) {
       .timeline-items { grid-template-columns: 1fr; }
-      .lang-section { flex-direction: column; }
+      .timeline-item { border-right: none; border-bottom: 1px solid rgba(201,169,122,0.08); padding: 2rem 0; }
     }
   </style>
 </head>
@@ -87,28 +115,29 @@
 <div id="cursor-ring"></div>
 <div id="page-transition"></div>
 
+<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">Sofia Storelli</a>
   <ul class="nav-links">
     <li><a href="index.html">Inicio</a></li>
-    <li><a href="Proyectos.html">Proyectos</a></li>
-    <li><a href="Sobre mi.html" class="active">Sobre mí</a></li>
-    <li><a href="Contacto.html">Contacto</a></li>
+    <li><a href="proyectos.html">Proyectos</a></li>
+    <li><a href="sobre-mi.html" class="active">Sobre mí</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
   </ul>
 </nav>
 
 <!-- ABOUT HERO -->
 <section class="about-hero">
   <div class="about-hero-left">
-    <div style="display:flex;flex-direction:column;justify-content:flex-end;height:100%;padding:18vh 6vw 10vh">
+    <div class="about-hero-left-inner">
       <div class="about-role reveal">Arquitecta · Universidad de Mendoza</div>
       <h1 class="about-h1 reveal reveal-delay-1">Sofia<br>Storelli</h1>
-      <p class="proj-desc reveal reveal-delay-2" style="max-width:36ch;color:var(--texto-sua);font-size:0.8rem;line-height:2.1">
+      <p class="proj-desc reveal reveal-delay-2" style="max-width:36ch;color:var(--gray);font-size:0.8rem;line-height:2.1">
         Mi formación me permitió comprender la arquitectura como un punto de encuentro entre lo técnico y lo humano. Proyecto espacios que integran lo estético, lo funcional y lo social.
       </p>
       <div style="display:flex;gap:1.5rem;margin-top:2.5rem" class="reveal reveal-delay-3">
-        <a href="Contacto.html" class="btn btn-primary"><span>Contacto</span></a>
-        <a href="Proyectos.html" class="btn"><span>Proyectos</span></a>
+        <a href="contacto.html" class="btn btn-primary"><span>Contacto</span></a>
+        <a href="proyectos.html" class="btn"><span>Proyectos</span></a>
       </div>
     </div>
   </div>
@@ -119,9 +148,33 @@
         <div class="photo-frame-ghost-2"></div>
         <div class="photo-frame-ghost"></div>
         <div class="photo-frame-main">
-          <img src="fotosofi.png" style="width:100%;height:100%;object-fit:cover;object-position:center top" alt="Sofia Storelli">
+          <!-- Architectural portrait illustration -->
+          <svg width="100%" height="100%" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="400" fill="#1a1916"/>
+            <!-- geometric composition -->
+            <line x1="0" y1="200" x2="300" y2="200" stroke="rgba(201,169,122,0.06)" stroke-width="0.5"/>
+            <line x1="150" y1="0" x2="150" y2="400" stroke="rgba(201,169,122,0.06)" stroke-width="0.5"/>
+            <!-- circle -->
+            <circle cx="150" cy="160" r="80" stroke="rgba(201,169,122,0.08)" stroke-width="0.5" fill="none"/>
+            <circle cx="150" cy="160" r="60" stroke="rgba(201,169,122,0.06)" stroke-width="0.5" fill="none"/>
+            <!-- architectural silhouette figure -->
+            <path d="M 110 400 L 110 250 Q 150 220 190 250 L 190 400" fill="#252318" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
+            <!-- head circle -->
+            <circle cx="150" cy="210" r="32" fill="#2a2820" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
+            <!-- decorative corner marks -->
+            <line x1="10" y1="10" x2="40" y2="10" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
+            <line x1="10" y1="10" x2="10" y2="40" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
+            <line x1="260" y1="10" x2="290" y2="10" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
+            <line x1="290" y1="10" x2="290" y2="40" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
+            <line x1="10" y1="360" x2="40" y2="360" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
+            <line x1="10" y1="360" x2="10" y2="390" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
+            <line x1="260" y1="360" x2="290" y2="360" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
+            <line x1="290" y1="360" x2="290" y2="390" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
+            <!-- hint text -->
+            <text x="150" y="385" font-size="7" fill="rgba(201,169,122,0.2)" letter-spacing="4" font-family="DM Sans, sans-serif" text-anchor="middle">AGREGAR FOTO</text>
+          </svg>
         </div>
-        <div style="position:absolute;bottom:-2.5rem;right:0;font-size:0.55rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--texto-min)">Mendoza, 2025</div>
+        <div style="position:absolute;bottom:-2.5rem;right:0;font-size:0.55rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gray)">Mendoza, 2025</div>
       </div>
     </div>
   </div>
@@ -137,127 +190,99 @@
   </div>
 </section>
 
-<!-- TIMELINE con fotos -->
+<!-- TIMELINE -->
 <section class="timeline">
   <div class="section-label reveal">Trayectoria</div>
   <div class="timeline-items">
-
     <div class="timeline-item reveal">
-      <div class="timeline-photo">
-        <img src="renderchiamo.png" alt="Chiamò 2023">
-      </div>
-      <div class="timeline-content">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">2023</div>
-        <div class="timeline-title">Primeros proyectos</div>
-        <p class="timeline-text">Chiamò (café) y Radix (vivienda unifamiliar). Primeras experiencias en diseño interior de escala real, desarrollando voz propia en materialidad y paleta.</p>
-      </div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2023</div>
+      <div class="timeline-title">Primeros proyectos</div>
+      <p class="timeline-text">Chiamò (café) y Radix (vivienda unifamiliar). Primeras experiencias en diseño interior de escala real, desarrollando voz propia en materialidad y paleta.</p>
     </div>
-
     <div class="timeline-item reveal reveal-delay-2">
-      <div class="timeline-photo">
-        <img src="bodegasofi.png" alt="Urku 2024">
-      </div>
-      <div class="timeline-content">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">2024</div>
-        <div class="timeline-title">Urku Bodega</div>
-        <p class="timeline-text">Proyecto arquitectónico de bodega en Luján de Cuyo. Trabajo completo: planos, cortes, renders y materialidad. Integración al paisaje andino.</p>
-      </div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2024</div>
+      <div class="timeline-title">Urku Bodega</div>
+      <p class="timeline-text">Proyecto arquitectónico de bodega en Luján de Cuyo. Trabajo completo: planos, cortes, renders y materialidad. Integración al paisaje andino.</p>
     </div>
-
     <div class="timeline-item reveal reveal-delay-3">
-      <div class="timeline-photo">
-        <img src="kairos.png" alt="Kairós 2025">
-      </div>
-      <div class="timeline-content">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">2025</div>
-        <div class="timeline-title">Tesis Final — Kairós</div>
-        <p class="timeline-text">Mercado de Abastos en Luján de Cuyo. Proyecto de tesis de grado que sintetiza cinco años de formación. Combina programa complejo con identidad cultural local.</p>
-      </div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2025</div>
+      <div class="timeline-title">Tesis Final — Kairós</div>
+      <p class="timeline-text">Mercado de Abastos en Luján de Cuyo. Proyecto de tesis de grado que sintetiza cinco años de formación. Combina programa complejo con identidad cultural local.</p>
     </div>
-
   </div>
 </section>
 
-<!-- SOFTWARES — integrated strip -->
+<!-- SOFTWARES -->
 <section class="skills-section">
-  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1rem">
-    <div class="section-label reveal" style="margin-bottom:0">Softwares</div>
-    <p class="skills-intro reveal" style="max-width:340px;margin:0;font-size:0.78rem;line-height:1.8;color:var(--texto-sua)">
-      Herramientas que uso a diario para documentar, modelar y visualizar cada proyecto.
-    </p>
-  </div>
-  <div class="skills-grid">
+  <div class="section-label reveal" style="padding:0 0 0 0">Softwares</div>
+
+  <div class="skills-grid" style="margin-top:4rem">
     <div class="skill-cell" data-level="95">
       <div class="skill-name">AutoCAD</div>
       <div class="skill-type">Planos técnicos · Documentación</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:rgba(154,125,82,0.2);position:relative;z-index:1">95%</div>
-      <div class="skill-bar"></div>
+      <div class="skill-bar" style="width:0%"></div>
     </div>
     <div class="skill-cell" data-level="88">
       <div class="skill-name">Revit</div>
       <div class="skill-type">BIM · Modelado arquitectónico</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:rgba(154,125,82,0.2);position:relative;z-index:1">88%</div>
-      <div class="skill-bar"></div>
+      <div class="skill-bar" style="width:0%"></div>
     </div>
     <div class="skill-cell" data-level="85">
       <div class="skill-name">SketchUp</div>
       <div class="skill-type">Modelado 3D · Conceptual</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:rgba(154,125,82,0.2);position:relative;z-index:1">85%</div>
-      <div class="skill-bar"></div>
+      <div class="skill-bar" style="width:0%"></div>
     </div>
     <div class="skill-cell" data-level="80">
       <div class="skill-name">Lumion</div>
       <div class="skill-type">Renders · Visualización</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:rgba(154,125,82,0.2);position:relative;z-index:1">80%</div>
-      <div class="skill-bar"></div>
+      <div class="skill-bar" style="width:0%"></div>
     </div>
     <div class="skill-cell" data-level="82">
       <div class="skill-name">D5 Render</div>
       <div class="skill-type">Renders fotorrealistas</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:rgba(154,125,82,0.2);position:relative;z-index:1">82%</div>
-      <div class="skill-bar"></div>
+      <div class="skill-bar" style="width:0%"></div>
     </div>
     <div class="skill-cell" data-level="75">
       <div class="skill-name">Illustrator</div>
       <div class="skill-type">Presentaciones · Diagramas</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:rgba(154,125,82,0.2);position:relative;z-index:1">75%</div>
-      <div class="skill-bar"></div>
+      <div class="skill-bar" style="width:0%"></div>
     </div>
     <div class="skill-cell" data-level="90">
       <div class="skill-name">Canva</div>
       <div class="skill-type">Diseño gráfico · Portfolios</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:rgba(154,125,82,0.2);position:relative;z-index:1">90%</div>
-      <div class="skill-bar"></div>
+      <div class="skill-bar" style="width:0%"></div>
     </div>
   </div>
 </section>
 
-<!-- IDIOMAS — horizontal strip, flush with skills -->
+<!-- IDIOMAS -->
 <section class="lang-section">
   <div class="lang-item reveal">
     <div class="lang-name">Español</div>
-    <span class="lang-level">Nativo</span>
-    <div class="lang-bar-track">
-      <div class="lang-bar-fill" style="width:100%"></div>
+    <div class="lang-level">Nativo</div>
+    <div style="margin-top:1.5rem;display:flex;gap:4px">
+      <div style="height:2px;width:100%;background:var(--gold)"></div>
     </div>
   </div>
   <div class="lang-item reveal reveal-delay-2">
     <div class="lang-name">Inglés</div>
-    <span class="lang-level">Avanzado</span>
-    <div class="lang-bar-track">
-      <div class="lang-bar-fill" style="width:85%"></div>
+    <div class="lang-level">Avanzado</div>
+    <div style="margin-top:1.5rem;display:flex;gap:4px">
+      <div style="height:2px;width:85%;background:var(--gold)"></div>
+      <div style="height:2px;width:15%;background:rgba(201,169,122,0.15)"></div>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <span>© 2025 Sofia Storelli</span>
-  <a href="Contacto.html" style="color:var(--gold);letter-spacing:0.3em;font-size:0.58rem;text-transform:uppercase">Contacto →</a>
+  <a href="contacto.html" style="color:var(--gold);letter-spacing:0.3em;font-size:0.58rem;text-transform:uppercase">Contacto →</a>
 </footer>
 
-<script src="Main.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
