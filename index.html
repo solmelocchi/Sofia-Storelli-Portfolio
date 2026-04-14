@@ -7,16 +7,6 @@
   <link rel="stylesheet" href="Style.css">
   <style>
     .hero-bg { background: var(--arena); }
-    .giant-num {
-      position: absolute;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(14rem, 35vw, 38rem);
-      font-weight: 300;
-      color: rgba(154,125,82,0.06);
-      line-height: 1; top: 50%; right: -3vw;
-      transform: translateY(-50%);
-      pointer-events: none; letter-spacing: -0.02em; user-select: none;
-    }
     .quote-divider {
       display: inline-block; width: 3rem; height: 1px;
       background: var(--gold); vertical-align: middle; margin-right: 1.5rem;
@@ -24,7 +14,6 @@
   </style>
 </head>
 <body>
-
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 <div id="page-transition"></div>
@@ -37,9 +26,17 @@
     <li><a href="Sobre mi.html">Sobre mí</a></li>
     <li><a href="Contacto.html">Contacto</a></li>
   </ul>
+  <button class="nav-hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile-menu">
+  <a href="index.html" class="active">Inicio</a>
+  <a href="Proyectos.html">Proyectos</a>
+  <a href="Sobre mi.html">Sobre mí</a>
+  <a href="Contacto.html">Contacto</a>
+</div>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
     <div class="hero-lines">
@@ -60,11 +57,7 @@
     </h1>
   </div>
   <div class="hero-right">
-    <div class="hero-tagline">
-      Egresada · Universidad de Mendoza<br>
-      Mendoza, Argentina<br>
-      Inglés Avanzado
-    </div>
+    <div class="hero-tagline">Egresada · Universidad de Mendoza<br>Mendoza, Argentina<br>Inglés Avanzado</div>
     <div class="hero-year">2025</div>
   </div>
   <div class="hero-scroll-hint">
@@ -73,18 +66,13 @@
   </div>
 </section>
 
-<!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track" id="marquee-track">
-    <span class="marquee-item">Arquitectura</span><span class="marquee-item gold">·</span>
-    <span class="marquee-item">Diseño Interior</span><span class="marquee-item gold">·</span>
     <span class="marquee-item">AutoCAD</span><span class="marquee-item gold">·</span>
     <span class="marquee-item">Revit</span><span class="marquee-item gold">·</span>
     <span class="marquee-item">Lumion</span><span class="marquee-item gold">·</span>
     <span class="marquee-item">D5 Render</span><span class="marquee-item gold">·</span>
     <span class="marquee-item">SketchUp</span><span class="marquee-item gold">·</span>
-    <span class="marquee-item">Arquitectura</span><span class="marquee-item gold">·</span>
-    <span class="marquee-item">Diseño Interior</span><span class="marquee-item gold">·</span>
     <span class="marquee-item">AutoCAD</span><span class="marquee-item gold">·</span>
     <span class="marquee-item">Revit</span><span class="marquee-item gold">·</span>
     <span class="marquee-item">Lumion</span><span class="marquee-item gold">·</span>
@@ -93,78 +81,69 @@
   </div>
 </div>
 
-<!-- PROJECT PREVIEW GRID — with real photos -->
 <section class="index-projects" style="padding-top:10vh">
   <div class="section-label reveal">Proyectos seleccionados</div>
-
   <div class="preview-grid">
     <a href="Proyectos.html" class="preview-card reveal reveal-delay-1">
-      <div class="preview-card-bg" style="background:url('renderchiamo.png') center/cover no-repeat"></div>
+      <div class="preview-card-bg" style="background-image:url('renderchiamo.png')"></div>
       <div class="preview-card-overlay"></div>
       <div class="preview-card-info">
         <div class="preview-card-num">01</div>
-        <div class="preview-card-title" style="color:white">Chiamò</div>
-        <div class="preview-card-type" style="color:rgba(255,255,255,0.7)">Café · Local Comercial · 2023</div>
+        <div class="preview-card-title">Chiamò</div>
+        <div class="preview-card-type">Café · Local Comercial · 2023</div>
       </div>
       <div class="preview-card-arrow">
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="1.5" fill="none"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>
     </a>
-
     <a href="Proyectos.html" class="preview-card preview-card-sm reveal reveal-delay-2">
-      <div class="preview-card-bg" style="background:url('bodegasofi.png') center/cover no-repeat"></div>
+      <div class="preview-card-bg" style="background-image:url('bodegasofi.png')"></div>
       <div class="preview-card-overlay"></div>
       <div class="preview-card-info">
         <div class="preview-card-num">02</div>
-        <div class="preview-card-title" style="color:white">Urku</div>
-        <div class="preview-card-type" style="color:rgba(255,255,255,0.7)">Bodega · Luján de Cuyo · 2024</div>
+        <div class="preview-card-title">Urku</div>
+        <div class="preview-card-type">Bodega · Luján de Cuyo · 2024</div>
       </div>
       <div class="preview-card-arrow">
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="1.5" fill="none"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>
     </a>
   </div>
-
   <div class="preview-grid-2" style="margin-top:2px">
     <a href="Proyectos.html" class="preview-card preview-card-sm reveal reveal-delay-3">
-      <div class="preview-card-bg" style="background:url('radixsofi.png') center/cover no-repeat"></div>
+      <div class="preview-card-bg" style="background-image:url('radixsofi.png')"></div>
       <div class="preview-card-overlay"></div>
       <div class="preview-card-info">
         <div class="preview-card-num">03</div>
-        <div class="preview-card-title" style="color:white">Radix</div>
-        <div class="preview-card-type" style="color:rgba(255,255,255,0.7)">Vivienda · Interior Design · 2023</div>
+        <div class="preview-card-title">Radix</div>
+        <div class="preview-card-type">Vivienda · Interior Design · 2023</div>
       </div>
       <div class="preview-card-arrow">
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="1.5" fill="none"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>
     </a>
-
     <a href="Proyectos.html" class="preview-card reveal reveal-delay-4">
-      <div class="preview-card-bg" style="background:url('kairos.png') center/cover no-repeat"></div>
+      <div class="preview-card-bg" style="background-image:url('kairos.png')"></div>
       <div class="preview-card-overlay" style="background:linear-gradient(135deg,rgba(14,14,12,0.6) 0%,rgba(14,14,12,0.2) 100%)"></div>
       <div class="preview-card-info">
         <div class="preview-card-num" style="color:var(--gold-pal)">04 — Tesis Final</div>
-        <div class="preview-card-title" style="color:white">Kairós</div>
-        <div class="preview-card-type" style="color:rgba(255,255,255,0.7)">Mercado de Abastos · Luján de Cuyo · 2025</div>
+        <div class="preview-card-title">Kairós</div>
+        <div class="preview-card-type">Mercado de Abastos · Luján de Cuyo · 2025</div>
       </div>
       <div class="preview-card-arrow">
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="1.5" fill="none"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>
     </a>
   </div>
 </section>
 
-<!-- MANIFESTO -->
 <section class="manifesto">
   <div class="manifesto-text reveal">
     <span class="quote-divider"></span>
     Comprender la arquitectura como un <em>punto de encuentro</em> entre lo técnico y lo humano.
   </div>
   <div class="manifesto-aside reveal reveal-delay-2">
-    Espacios que integran<br>
-    lo estético · lo funcional · lo social<br><br>
-    Experiencias significativas<br>
-    en la vida cotidiana
+    Espacios que integran<br>lo estético · lo funcional · lo social<br><br>Experiencias significativas<br>en la vida cotidiana
   </div>
 </section>
 
