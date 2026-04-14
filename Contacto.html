@@ -17,21 +17,19 @@
       background: var(--crema);
       border-right: 1px solid rgba(154,125,82,0.1);
     }
-    /* subtle grid pattern */
+    /* grid pattern */
     .contact-left::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(154,125,82,0.04) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(154,125,82,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(154,125,82,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(154,125,82,0.04) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none;
     }
     .contact-right {
       position: relative; overflow: hidden;
       display: flex; flex-direction: column;
       justify-content: center; align-items: center;
-      padding: 8vh 6vw;
-      background: var(--arena);
+      padding: 8vh 6vw; background: var(--arena);
     }
     .contact-info-item {
       margin-bottom: 2.5rem; padding-bottom: 2.5rem;
@@ -48,7 +46,7 @@
       font-size: clamp(1.1rem, 1.8vw, 1.6rem);
       font-weight: 300; color: var(--texto); letter-spacing: 0.04em;
     }
-    .contact-info-value a { transition: color 0.3s; display: inline-block; }
+    .contact-info-value a { transition: color 0.3s; }
     .contact-info-value a:hover { color: var(--gold); }
     .avail-badge {
       display: inline-flex; align-items: center; gap: 0.6rem;
@@ -89,6 +87,27 @@
       background: linear-gradient(to bottom, transparent, var(--gold), transparent);
       margin: 0 auto 3rem;
     }
+    /* WPP button — green */
+    .btn-wpp {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      padding: 1rem 2.2rem;
+      background: #25d366;
+      border: 1px solid #25d366;
+      color: #fff;
+      font-size: 0.62rem; letter-spacing: 0.4em; text-transform: uppercase;
+      position: relative; overflow: hidden;
+      transition: background 0.3s, border-color 0.3s;
+      cursor: pointer;
+    }
+    .btn-wpp::before {
+      content: ''; position: absolute; inset: 0;
+      background: #128c4a;
+      transform: translateX(-101%);
+      transition: transform 0.5s cubic-bezier(0.85,0,0.15,1);
+    }
+    .btn-wpp:hover::before { transform: translateX(0); }
+    .btn-wpp span { position: relative; z-index: 1; }
+    .btn-wpp svg { position: relative; z-index: 1; width: 18px; height: 18px; fill: #fff; flex-shrink: 0; }
     .back-link {
       position: fixed; bottom: 2.5rem; left: 3vw;
       font-size: 0.6rem; letter-spacing: 0.4em;
@@ -96,7 +115,6 @@
       transition: color 0.3s; z-index: 100;
     }
     .back-link:hover { color: var(--gold); }
-    /* Social links row */
     .contact-socials {
       display: flex; gap: 2rem; justify-content: center;
       margin-top: 2rem; flex-wrap: wrap;
@@ -108,16 +126,18 @@
     }
     .contact-social-link::after {
       content: ''; position: absolute; bottom: -3px; left: 0;
-      width: 0; height: 1px; background: var(--gold);
-      transition: width 0.4s;
+      width: 0; height: 1px; background: var(--gold); transition: width 0.4s;
     }
     .contact-social-link:hover { color: var(--gold); }
     .contact-social-link:hover::after { width: 100%; }
-    @media (max-width: 768px) {
+
+    @media (max-width: 900px) {
       body { overflow: auto; }
-      .contact-wrap { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
-      .contact-left { border-right: none; border-bottom: 1px solid rgba(154,125,82,0.1); }
-      .contact-right { min-height: 60vh; }
+      .contact-wrap { grid-template-columns: 1fr; height: auto; min-height: 100vh; overflow: visible; }
+      .contact-left { padding: 14vh 6vw 6vh; border-right: none; border-bottom: 1px solid rgba(154,125,82,0.1); }
+      .contact-right { min-height: 70vh; padding: 6vh 6vw; }
+      .contact-bg-letter { font-size: 120vw; }
+      .back-link { display: none; }
     }
   </style>
 </head>
@@ -135,7 +155,16 @@
     <li><a href="Sobre mi.html">Sobre mí</a></li>
     <li><a href="Contacto.html" class="active">Contacto</a></li>
   </ul>
+  <button class="nav-hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile-menu">
+  <a href="index.html">Inicio</a>
+  <a href="Proyectos.html">Proyectos</a>
+  <a href="Sobre mi.html">Sobre mí</a>
+  <a href="Contacto.html" class="active">Contacto</a>
+</div>
 
 <a href="index.html" class="back-link">← Volver</a>
 
@@ -153,22 +182,20 @@
     <div class="contact-info-item reveal reveal-delay-2">
       <div class="contact-info-label">LinkedIn</div>
       <div class="contact-info-value">
-        <a href="https://linkedin.com/in/sofiastorelli" target="_blank">linkedin.com/in/sofiastorelli</a>
+        <a href="https://linkedin.com/in/sofiastorelli" target="_blank" rel="noopener">linkedin.com/in/sofiastorelli</a>
       </div>
     </div>
 
     <div class="contact-info-item reveal reveal-delay-2">
       <div class="contact-info-label">Instagram</div>
       <div class="contact-info-value">
-        <a href="https://instagram.com/sofiastorelli.arq" target="_blank">@sofiastorelli.arq</a>
+        <a href="https://instagram.com/sofiastorelli.arq" target="_blank" rel="noopener">@sofiastorelli.arq</a>
       </div>
     </div>
 
     <div class="contact-info-item reveal reveal-delay-3">
       <div class="contact-info-label">Ubicación</div>
-      <div class="contact-info-value" style="font-size:clamp(1rem,1.5vw,1.3rem)">
-        Mendoza, Argentina
-      </div>
+      <div class="contact-info-value">Mendoza, Argentina</div>
     </div>
 
     <div class="avail-badge reveal reveal-delay-4">
@@ -192,50 +219,23 @@
         lo estético · lo funcional · lo social<br>
         Mendoza · Argentina · 2025
       </p>
-      <a href="mailto:sofiistorelli@gmail.com" class="btn btn-primary reveal reveal-delay-4" style="display:inline-flex">
-        <a href="https://wa.me/5492615861499" target="_blank" class="btn btn-secondary">
-        <span>Escribime →</span>
+
+      <!-- Solo WhatsApp -->
+      <a href="https://wa.me/5492615861499" target="_blank" rel="noopener" class="btn-wpp reveal reveal-delay-4">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <span>Escribime por WhatsApp</span>
       </a>
+
       <div class="contact-socials reveal reveal-delay-4">
-        <a href="https://linkedin.com/in/sofiastorelli" target="_blank" class="contact-social-link">LinkedIn</a>
-        <a href="https://instagram.com/sofiastorelli.arq" target="_blank" class="contact-social-link">Instagram</a>
+        <a href="https://linkedin.com/in/sofiastorelli" target="_blank" rel="noopener" class="contact-social-link">LinkedIn</a>
+        <a href="https://instagram.com/sofiastorelli.arq" target="_blank" rel="noopener" class="contact-social-link">Instagram</a>
       </div>
     </div>
   </div>
 </div>
 
 <script src="Main.js"></script>
-<script>
-  (function() {
-    const canvas = document.getElementById('contact-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let w, h, t = 0;
-    function resize() { w = canvas.width = canvas.offsetWidth; h = canvas.height = canvas.offsetHeight; }
-    resize();
-    window.addEventListener('resize', resize);
-    function draw() {
-      ctx.clearRect(0, 0, w, h);
-      ctx.strokeStyle = 'rgba(154,125,82,0.05)';
-      ctx.lineWidth = 0.5;
-      const step = 80;
-      for (let x = 0; x <= w; x += step) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke(); }
-      for (let y = 0; y <= h; y += step) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
-      ctx.strokeStyle = 'rgba(154,125,82,0.08)';
-      for (let i = 0; i < 4; i++) {
-        const r = 80 + i*60 + Math.sin(t*0.3+i)*20;
-        ctx.beginPath(); ctx.arc(w*0.5, h*0.5, r, 0, Math.PI*2); ctx.stroke();
-      }
-      const nx = w*0.5 + Math.sin(t*0.5)*w*0.2;
-      const ny = h*0.5 + Math.cos(t*0.4)*h*0.15;
-      const pulse = (Math.sin(t*1.2)+1)/2;
-      ctx.beginPath(); ctx.arc(nx, ny, 2+pulse*4, 0, Math.PI*2);
-      ctx.fillStyle = `rgba(154,125,82,${0.12+pulse*0.2})`; ctx.fill();
-      t += 0.012;
-      requestAnimationFrame(draw);
-    }
-    draw();
-  })();
-</script>
 </body>
 </html>
