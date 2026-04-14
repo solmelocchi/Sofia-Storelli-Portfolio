@@ -6,67 +6,29 @@
   <title>Sofia Storelli — Arquitectura</title>
   <link rel="stylesheet" href="Style.css">
   <style>
-    /* ── hero bg lines ── */
-    .hero-bg { background: #0e0e0c; }
-
-    /* ── large index number decoration ── */
+    .hero-bg { background: var(--arena); }
     .giant-num {
       position: absolute;
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(14rem, 35vw, 38rem);
       font-weight: 300;
-      color: rgba(201,169,122,0.03);
-      line-height: 1;
-      top: 50%;
-      right: -3vw;
+      color: rgba(154,125,82,0.06);
+      line-height: 1; top: 50%; right: -3vw;
       transform: translateY(-50%);
-      pointer-events: none;
-      letter-spacing: -0.02em;
-      user-select: none;
+      pointer-events: none; letter-spacing: -0.02em; user-select: none;
     }
-
-    /* ── manifesto quote line ── */
     .quote-divider {
-      display: inline-block;
-      width: 3rem;
-      height: 1px;
-      background: var(--gold);
-      vertical-align: middle;
-      margin-right: 1.5rem;
+      display: inline-block; width: 3rem; height: 1px;
+      background: var(--gold); vertical-align: middle; margin-right: 1.5rem;
     }
-
-    /* ── strip marquee ── */
-    .marquee-wrap {
-      overflow: hidden;
-      border-top: 1px solid rgba(201,169,122,0.08);
-      border-bottom: 1px solid rgba(201,169,122,0.08);
-      padding: 1.2rem 0;
-      white-space: nowrap;
-    }
-    .marquee-track {
-      display: inline-flex;
-      gap: 4rem;
-      will-change: transform;
-    }
-    .marquee-item {
-      font-size: 0.6rem;
-      letter-spacing: 0.5em;
-      text-transform: uppercase;
-      color: var(--gray);
-    }
-    .marquee-item.gold { color: var(--gold); }
   </style>
 </head>
 <body>
 
-<!-- CURSOR -->
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
-
-<!-- PAGE TRANSITION -->
 <div id="page-transition"></div>
 
-<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">Sofia Storelli</a>
   <ul class="nav-links">
@@ -80,7 +42,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
-    <div class="hero-lines" id="hero-lines-container">
+    <div class="hero-lines">
       <div class="hero-line h" style="top:20%"></div>
       <div class="hero-line h" style="top:50%"></div>
       <div class="hero-line h" style="top:80%"></div>
@@ -89,9 +51,7 @@
       <div class="hero-line v" style="left:85%"></div>
     </div>
   </div>
-
   <div class="giant-num">S</div>
-
   <div class="hero-title-wrap">
     <div class="hero-eyebrow">Arquitectura · Portfolio 2025</div>
     <h1 class="hero-name">
@@ -99,7 +59,6 @@
       <span class="line"><span class="word">Storelli</span></span>
     </h1>
   </div>
-
   <div class="hero-right">
     <div class="hero-tagline">
       Egresada · Universidad de Mendoza<br>
@@ -108,7 +67,6 @@
     </div>
     <div class="hero-year">2025</div>
   </div>
-
   <div class="hero-scroll-hint">
     <span>Explorar</span>
     <div class="scroll-line"></div>
@@ -118,221 +76,79 @@
 <!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track" id="marquee-track">
-    <span class="marquee-item">Arquitectura</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Diseño Interior</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Autocad</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Revit</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Lumion</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">D5 Render</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Sketchup</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Mendoza · Argentina</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Universidad de Mendoza</span>
-    <span class="marquee-item gold">·</span>
-    <!-- duplicate for seamless loop -->
-    <span class="marquee-item">Arquitectura</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Diseño Interior</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Autocad</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Revit</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Lumion</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">D5 Render</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Sketchup</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Mendoza · Argentina</span>
-    <span class="marquee-item gold">·</span>
-    <span class="marquee-item">Universidad de Mendoza</span>
-    <span class="marquee-item gold">·</span>
+    <span class="marquee-item">Arquitectura</span><span class="marquee-item gold">·</span>
+    <span class="marquee-item">Diseño Interior</span><span class="marquee-item gold">·</span>
+    <span class="marquee-item">AutoCAD</span><span class="marquee-item gold">·</span>
+    <span class="marquee-item">Revit</span><span class="marquee-item gold">·</span>
+    <span class="marquee-item">Lumion</span><span class="marquee-item gold">·</span>
+    <span class="marquee-item">D5 Render</span><span class="marquee-item gold">·</span>
+    <span class="marquee-item">SketchUp</span><span class="marquee-item gold">·</span>
+    <span class="marquee-item">Arquitectura</span><span class="marquee-item gold">·</span>
+    <span class="marquee-item">Diseño Interior</span><span class="marquee-item gold">·</span>
+    <span class="marquee-item">AutoCAD</span><span class="marquee-item gold">·</span>
+    <span class="marquee-item">Revit</span><span class="marquee-item gold">·</span>
+    <span class="marquee-item">Lumion</span><span class="marquee-item gold">·</span>
+    <span class="marquee-item">D5 Render</span><span class="marquee-item gold">·</span>
+    <span class="marquee-item">SketchUp</span><span class="marquee-item gold">·</span>
   </div>
 </div>
 
-<!-- PROJECT PREVIEW GRID -->
+<!-- PROJECT PREVIEW GRID — with real photos -->
 <section class="index-projects" style="padding-top:10vh">
   <div class="section-label reveal">Proyectos seleccionados</div>
 
-  <!-- Row 1 -->
   <div class="preview-grid">
     <a href="Proyectos.html" class="preview-card reveal reveal-delay-1">
-      <div class="preview-card-bg">
-        <svg class="card-svg" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="800" height="450" fill="#1a1916"/>
-          <!-- Chiamo café architectural sketch -->
-          <rect x="60" y="60" width="680" height="330" fill="#1f1e1a" stroke="rgba(201,169,122,0.12)" stroke-width="0.5"/>
-          <!-- counter -->
-          <path d="M 80 300 Q 320 280 440 300 L 440 380 L 80 380 Z" fill="#2a2820" stroke="rgba(201,169,122,0.2)" stroke-width="0.5"/>
-          <!-- ceiling slats -->
-          <line x1="60" y1="100" x2="740" y2="100" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-          <line x1="100" y1="60" x2="100" y2="390" stroke="rgba(201,169,122,0.05)" stroke-width="0.5"/>
-          <line x1="180" y1="60" x2="180" y2="390" stroke="rgba(201,169,122,0.05)" stroke-width="0.5"/>
-          <line x1="260" y1="60" x2="260" y2="390" stroke="rgba(201,169,122,0.05)" stroke-width="0.5"/>
-          <!-- tables -->
-          <ellipse cx="160" cy="310" rx="40" ry="18" fill="#252420" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
-          <ellipse cx="290" cy="320" rx="38" ry="16" fill="#252420" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
-          <!-- window light -->
-          <rect x="480" y="60" width="260" height="250" fill="rgba(201,169,122,0.04)" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-          <line x1="610" y1="60" x2="610" y2="310" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-          <line x1="480" y1="185" x2="740" y2="185" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-          <!-- plants -->
-          <ellipse cx="700" cy="180" rx="25" ry="35" fill="rgba(80,100,60,0.2)" stroke="rgba(80,100,60,0.3)" stroke-width="0.5"/>
-          <!-- chiamo text on wall -->
-          <text x="330" y="200" font-size="18" fill="rgba(240,236,227,0.08)" letter-spacing="8" font-family="Georgia">chiamo.</text>
-          <!-- color accent -->
-          <rect x="60" y="385" width="120" height="3" fill="rgba(201,169,122,0.4)"/>
-        </svg>
-      </div>
+      <div class="preview-card-bg" style="background:url('renderchiamo.png') center/cover no-repeat"></div>
       <div class="preview-card-overlay"></div>
       <div class="preview-card-info">
         <div class="preview-card-num">01</div>
-        <div class="preview-card-title">Chiamò</div>
-        <div class="preview-card-type">Café · Local Comercial · 2023</div>
+        <div class="preview-card-title" style="color:white">Chiamò</div>
+        <div class="preview-card-type" style="color:rgba(255,255,255,0.7)">Café · Local Comercial · 2023</div>
       </div>
       <div class="preview-card-arrow">
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="1.5" fill="none"/></svg>
       </div>
     </a>
 
     <a href="Proyectos.html" class="preview-card preview-card-sm reveal reveal-delay-2">
-      <div class="preview-card-bg">
-        <svg class="card-svg" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="400" height="300" fill="#141210"/>
-          <!-- mountain silhouette -->
-          <path d="M 0 250 L 80 120 L 160 200 L 240 80 L 320 160 L 400 100 L 400 300 L 0 300 Z" fill="#1e1c18"/>
-          <!-- winery building -->
-          <rect x="80" y="150" width="240" height="120" fill="#252118" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
-          <rect x="120" y="100" width="80" height="50" fill="#1e1c18" stroke="rgba(201,169,122,0.12)" stroke-width="0.5"/>
-          <!-- large windows -->
-          <rect x="90" y="165" width="60" height="80" fill="rgba(201,169,122,0.08)" stroke="rgba(201,169,122,0.2)" stroke-width="0.5"/>
-          <rect x="170" y="165" width="60" height="80" fill="rgba(201,169,122,0.08)" stroke="rgba(201,169,122,0.2)" stroke-width="0.5"/>
-          <rect x="250" y="165" width="60" height="80" fill="rgba(201,169,122,0.08)" stroke="rgba(201,169,122,0.2)" stroke-width="0.5"/>
-          <!-- cross bar windows -->
-          <line x1="120" y1="205" x2="150" y2="205" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-          <line x1="135" y1="165" x2="135" y2="245" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-          <!-- tanks silhouette -->
-          <circle cx="140" cy="100" r="12" fill="rgba(201,169,122,0.06)" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
-          <circle cx="170" cy="100" r="12" fill="rgba(201,169,122,0.06)" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
-          <circle cx="200" cy="100" r="12" fill="rgba(201,169,122,0.06)" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
-        </svg>
-      </div>
+      <div class="preview-card-bg" style="background:url('bodegasofi.png') center/cover no-repeat"></div>
       <div class="preview-card-overlay"></div>
       <div class="preview-card-info">
         <div class="preview-card-num">02</div>
-        <div class="preview-card-title">Urku</div>
-        <div class="preview-card-type">Bodega · Luján de Cuyo · 2024</div>
+        <div class="preview-card-title" style="color:white">Urku</div>
+        <div class="preview-card-type" style="color:rgba(255,255,255,0.7)">Bodega · Luján de Cuyo · 2024</div>
       </div>
       <div class="preview-card-arrow">
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="1.5" fill="none"/></svg>
       </div>
     </a>
   </div>
 
-
-  <!-- Row 2 -->
   <div class="preview-grid-2" style="margin-top:2px">
     <a href="Proyectos.html" class="preview-card preview-card-sm reveal reveal-delay-3">
-      <div class="preview-card-bg">
-        <svg class="card-svg" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="400" height="300" fill="#19180f"/>
-          <!-- Radix - patio interior living space -->
-          <rect x="20" y="20" width="360" height="260" fill="#201e14" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-          <!-- living area -->
-          <rect x="30" y="140" width="200" height="130" fill="#252215" stroke="rgba(201,169,122,0.08)" stroke-width="0.5"/>
-          <!-- patio green -->
-          <rect x="150" y="70" width="100" height="80" fill="rgba(70,90,40,0.3)" stroke="rgba(90,110,50,0.3)" stroke-width="0.5"/>
-          <ellipse cx="200" cy="110" rx="30" ry="25" fill="rgba(70,100,40,0.2)"/>
-          <!-- sofa L shape -->
-          <rect x="40" y="180" width="120" height="40" fill="#2e2b1c" stroke="rgba(201,169,122,0.12)" stroke-width="0.5"/>
-          <rect x="40" y="180" width="40" height="80" fill="#2e2b1c" stroke="rgba(201,169,122,0.12)" stroke-width="0.5"/>
-          <!-- kitchen island -->
-          <rect x="260" y="80" width="120" height="50" fill="#332f1e" stroke="rgba(201,169,122,0.15)" stroke-width="0.5"/>
-          <!-- wooden ceiling lines -->
-          <line x1="20" y1="50" x2="380" y2="50" stroke="rgba(201,169,122,0.06)" stroke-width="0.5"/>
-          <line x1="20" y1="65" x2="380" y2="65" stroke="rgba(201,169,122,0.04)" stroke-width="0.5"/>
-          <line x1="20" y1="80" x2="380" y2="80" stroke="rgba(201,169,122,0.04)" stroke-width="0.5"/>
-        </svg>
-      </div>
+      <div class="preview-card-bg" style="background:url('radixsofi.png') center/cover no-repeat"></div>
       <div class="preview-card-overlay"></div>
       <div class="preview-card-info">
         <div class="preview-card-num">03</div>
-        <div class="preview-card-title">Radix</div>
-        <div class="preview-card-type">Vivienda · Interior Design · 2023</div>
+        <div class="preview-card-title" style="color:white">Radix</div>
+        <div class="preview-card-type" style="color:rgba(255,255,255,0.7)">Vivienda · Interior Design · 2023</div>
       </div>
       <div class="preview-card-arrow">
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="1.5" fill="none"/></svg>
       </div>
     </a>
 
-    <a href="Proyectos.html" class="preview-card reveal reveal-delay-4" style="background:#0e0e0c">
-      <div class="preview-card-bg">
-        <svg class="card-svg" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="800" height="450" fill="#0e0e0c"/>
-          <!-- Kairós market - dramatic dark rendering -->
-          <rect x="0" y="0" width="800" height="450" fill="#111109"/>
-          <!-- ceiling grid lights -->
-          <rect x="50" y="40" width="700" height="180" fill="#151410" stroke="rgba(201,169,122,0.06)" stroke-width="0.5"/>
-          <!-- ceiling light panels -->
-          <rect x="80" y="50" width="100" height="50" fill="rgba(201,169,122,0.06)" stroke="rgba(201,169,122,0.12)" stroke-width="0.3"/>
-          <rect x="220" y="50" width="100" height="50" fill="rgba(201,169,122,0.06)" stroke="rgba(201,169,122,0.12)" stroke-width="0.3"/>
-          <rect x="360" y="50" width="100" height="50" fill="rgba(201,169,122,0.06)" stroke="rgba(201,169,122,0.12)" stroke-width="0.3"/>
-          <rect x="500" y="50" width="100" height="50" fill="rgba(201,169,122,0.06)" stroke="rgba(201,169,122,0.12)" stroke-width="0.3"/>
-          <rect x="640" y="50" width="100" height="50" fill="rgba(201,169,122,0.06)" stroke="rgba(201,169,122,0.12)" stroke-width="0.3"/>
-          <!-- floor checkerboard hint -->
-          <rect x="0" y="350" width="800" height="100" fill="#131210"/>
-          <rect x="0" y="350" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="100" y="350" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="200" y="350" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="300" y="350" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="400" y="350" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="500" y="350" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="600" y="350" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="700" y="350" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="50" y="400" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="150" y="400" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="250" y="400" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="350" y="400" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="450" y="400" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="550" y="400" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="650" y="400" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <rect x="750" y="400" width="50" height="50" fill="#161512" opacity="0.5"/>
-          <!-- market stalls -->
-          <rect x="60" y="220" width="140" height="120" fill="#181714" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-          <rect x="220" y="220" width="140" height="120" fill="#181714" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-          <rect x="380" y="220" width="140" height="120" fill="#181714" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-          <rect x="540" y="220" width="140" height="120" fill="#181714" stroke="rgba(201,169,122,0.1)" stroke-width="0.5"/>
-          <!-- stall signs -->
-          <rect x="60" y="215" width="140" height="12" fill="rgba(201,169,122,0.15)"/>
-          <rect x="220" y="215" width="140" height="12" fill="rgba(201,169,122,0.1)"/>
-          <rect x="380" y="215" width="140" height="12" fill="rgba(201,169,122,0.12)"/>
-          <rect x="540" y="215" width="140" height="12" fill="rgba(201,169,122,0.1)"/>
-          <!-- people silhouettes -->
-          <ellipse cx="200" cy="340" rx="8" ry="18" fill="#252320" opacity="0.8"/>
-          <ellipse cx="350" cy="345" rx="7" ry="16" fill="#252320" opacity="0.7"/>
-          <ellipse cx="450" cy="335" rx="9" ry="20" fill="#252320" opacity="0.8"/>
-          <!-- central corridor -->
-          <line x1="400" y1="230" x2="400" y2="450" stroke="rgba(201,169,122,0.06)" stroke-width="30"/>
-          <!-- text -->
-          <text x="340" y="175" font-size="22" fill="rgba(240,236,227,0.06)" letter-spacing="12" font-family="Georgia">KAIRÓS</text>
-        </svg>
-      </div>
-      <div class="preview-card-overlay" style="background:linear-gradient(135deg,rgba(14,14,12,0.8) 0%,rgba(14,14,12,0.3) 100%)"></div>
+    <a href="Proyectos.html" class="preview-card reveal reveal-delay-4">
+      <div class="preview-card-bg" style="background:url('kairos.png') center/cover no-repeat"></div>
+      <div class="preview-card-overlay" style="background:linear-gradient(135deg,rgba(14,14,12,0.6) 0%,rgba(14,14,12,0.2) 100%)"></div>
       <div class="preview-card-info">
-        <div class="preview-card-num" style="color:var(--gold)">04 — Tesis Final</div>
-        <div class="preview-card-title">Kairós</div>
-        <div class="preview-card-type">Mercado de Abastos · Luján de Cuyo · 2025</div>
+        <div class="preview-card-num" style="color:var(--gold-pal)">04 — Tesis Final</div>
+        <div class="preview-card-title" style="color:white">Kairós</div>
+        <div class="preview-card-type" style="color:rgba(255,255,255,0.7)">Mercado de Abastos · Luján de Cuyo · 2025</div>
       </div>
       <div class="preview-card-arrow">
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="1.5" fill="none"/></svg>
       </div>
     </a>
   </div>
@@ -352,14 +168,12 @@
   </div>
 </section>
 
-<!-- CTA -->
 <div class="cta-row reveal">
   <a href="Proyectos.html" class="btn btn-primary"><span>Ver proyectos</span></a>
   <a href="Sobre mi.html" class="btn"><span>Sobre mí</span></a>
   <a href="Contacto.html" class="btn"><span>Contacto</span></a>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <span>© 2025 Sofia Storelli</span>
   <span>Arquitectura · Mendoza, Argentina</span>
